@@ -1,37 +1,15 @@
-.container{
-    padding: 20px;
-    width: 50%;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+.content {
+  display: flex;
+  justify-content: space-between;
 
-    &:hover{
-        cursor: pointer;
-        box-shadow: 0 0 10px 0 #ccc;
-    }
-    .top{
-        display: flex;
-        .left {
-            flex: 1;
-        }
-
-        .right{
-            flex: 1;
-            text-align: right;
-        }
-
+  .action {
+    &:hover {
+      cursor: pointer;
+      color: #1677ff;
     }
 
-    .bottom{
-        margin-top: 20px;
-        display: flex;
-        .left {
-            flex: 1;
-        }
-
-        .right{
-            flex: 1;
-            text-align: right;
-        }
+    .star {
+      color: red;
     }
+  }
 }
