@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    align-items: center;
+    .left {
+        flex: 1;
+    }
+    .right{
+        flex:1;
+        text-align: center;
+    }
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+
+.footer{
+   margin-top: 20px; 
+}
