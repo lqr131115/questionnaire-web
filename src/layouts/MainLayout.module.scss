@@ -1,28 +1,29 @@
-.header{
-    display: flex;
-    background-color: #fff;
-    justify-content: space-between;
-    .left{
-    }
+.header {
+  display: flex;
+  background-color: #fff;
+  justify-content: space-between;
+  align-items: center;
 
-    .right{
+  .avatar {
+    &:hover {
+      cursor: pointer;
     }
+  }
 }
 
-.container{
-    min-height: calc(100vh - 64px - 88px);
+.container {
+  min-height: calc(100vh - 64px - 88px);
 }
 
+.footer {
+  padding: 24px 0;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+  .icon {
+    color: red;
+  }
 
-.footer{
-    padding: 24px 0;
-    text-align: center;
-    border-top: 1px solid #f0f0f0;
-    .icon{
-        color: red;
-    }
-
-    .author{
-        font-weight: bolder;
-    }
+  .author {
+    font-weight: bolder;
+  }
 }

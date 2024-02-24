@@ -1,15 +1,38 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Layout } from "antd";
+import { Layout, Popover, Button, Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import styles from "./MainLayout.module.scss";
+import Logo from "./Logo";
 const { Header, Footer, Content } = Layout;
 
 const MainLayout: FC = () => {
+  const [open, setOpen] = useState(false);
+
+  const logout = () => {
+    setOpen(false);
+    alert("退出成功");
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
   return (
     <Layout>
       <Header className={styles.header}>
-        <span className={styles.left}>left</span>
-        <span className={styles.right}>right</span>
+        <Logo />
+        <Popover
+          content={
+            <Button type="link" onClick={logout}>
+              退出
+            </Button>
+          }
+          trigger="click"
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <Avatar className={styles.avatar} icon={<UserOutlined />} />
+        </Popover>
       </Header>
       <Content className={styles.container}>
         <Outlet />
