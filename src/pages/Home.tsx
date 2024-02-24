@@ -1,8 +1,25 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
+import { Typography, Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import styles from "./Home.module.scss";
+const { Title, Paragraph } = Typography;
 const Home: FC = () => {
   useTitle("Home");
-  return <div>I AM HOME</div>;
+  const navigator = useNavigate();
+  return (
+    <>
+      <div className={styles.container}>
+        <Title>问卷调查</Title>
+        <Paragraph>已发布90份</Paragraph>
+        <div>
+          <Button type="primary" onClick={() => navigator("/manage/list")}>
+            开始使用
+          </Button>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Home;
