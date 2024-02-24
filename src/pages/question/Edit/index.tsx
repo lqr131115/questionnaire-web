@@ -1,7 +1,9 @@
 import React, { FC } from "react";
+import { useParams } from "react-router-dom";
 
 const Edit: FC = () => {
-  return <div>I AM Edit</div>;
+  const params = useParams();
+  return <div>I AM {JSON.stringify(params)}</div>;
 };
 
 export default Edit;

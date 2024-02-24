@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Card, Button, Space } from "antd";
+import { useNavigate } from "react-router-dom";
 import {
   EditOutlined,
   LineChartOutlined,
@@ -20,6 +21,7 @@ type QuestionCardProps = {
 };
 
 const QuestionCard: FC<QuestionCardProps> = (props) => {
+  const navigator = useNavigate();
   const { id, title, isPublished, answerCount, createAt, copy, del } = props;
   function handleCopy(id: string) {
     copy && copy(id);
@@ -52,14 +54,14 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
           <Space size={20}>
             <span
               className={styles.action}
-              onClick={() => console.log("编辑" + id)}
+              onClick={() => navigator(`/question/edit/${id}`)}
             >
               <EditOutlined />
               编辑
             </span>
             <span
               className={styles.action}
-              onClick={() => console.log("统计" + id)}
+              onClick={() => navigator(`/question/stat/${id}`)}
             >
               <LineChartOutlined />
               统计

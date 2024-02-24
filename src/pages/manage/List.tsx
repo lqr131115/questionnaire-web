@@ -1,10 +1,8 @@
 import React, { FC, useState } from "react";
 import styles from "./List.module.scss";
-import { Input } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
 import QuestionCard from "../../components/QuestionCard";
-
-const { Search } = Input;
+import QuestionHeader from "../../components/QuestionHeader";
 const mockList = [
   {
     id: "q1",
@@ -37,17 +35,7 @@ const List: FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <span className={styles.left}>我的问卷</span>
-        <div className={styles.right}>
-          <Search
-            placeholder="Search"
-            allowClear
-            size="large"
-            onSearch={onSearch}
-          />
-        </div>
-      </div>
+      <QuestionHeader title="我的问卷" search={onSearch} />
       <div className={styles.container}>
         {questionList.map((item) => (
           <QuestionCard key={item.id} {...item} copy={doCopy} del={doDelete} />

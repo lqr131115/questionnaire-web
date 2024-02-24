@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   PlusOutlined,
   UnorderedListOutlined,
@@ -28,6 +28,7 @@ const items = [
 ];
 
 const ManageLayout: FC = () => {
+  const navigator = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -37,7 +38,13 @@ const ManageLayout: FC = () => {
         <Divider />
         <Space direction="vertical">
           {items.map((item) => (
-            <Button key={item.key} type="default" icon={item.icon} size="large">
+            <Button
+              key={item.key}
+              type="default"
+              icon={item.icon}
+              size="large"
+              onClick={() => navigator(`/manage/${item.key}`)}
+            >
               {item.label}
             </Button>
           ))}
