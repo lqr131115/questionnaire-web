@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Card, Button, Space } from "antd";
+import { Card, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   EditOutlined,
@@ -22,19 +22,26 @@ type QuestionCardProps = {
 
 const QuestionCard: FC<QuestionCardProps> = (props) => {
   const navigator = useNavigate();
-  const { id, title, isPublished, answerCount, createAt, copy, del } = props;
+  const { id, title, isStar, isPublished, answerCount, createAt, copy, del } =
+    props;
   function handleCopy(id: string) {
     copy && copy(id);
   }
   function handleDelete(id: string) {
     del && del(id);
   }
+  const cardTitle = (
+    <Space size={10}>
+      <span>{title}</span>
+      {isStar && <StarOutlined style={{ color: "orange" }} />}
+    </Space>
+  );
   const extra = (
     <Space size={10}>
       {isPublished ? (
-        <Button type="primary">已发布</Button>
+        <span style={{ color: "green" }}>已发布</span>
       ) : (
-        <Button>未发布</Button>
+        <span>未发布</span>
       )}
       <span>
         答卷:&nbsp;
@@ -47,7 +54,7 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
     <>
       <Card
         style={{ width: "100%", marginBottom: "20px" }}
-        title={title}
+        title={cardTitle}
         extra={extra}
       >
         <div className={styles.content}>
@@ -72,8 +79,14 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
               className={styles.action}
               onClick={() => console.log("收藏" + id)}
             >
-              <StarOutlined />
-              收藏
+              {isStar ? (
+                <span style={{ color: "orange" }}>取消收藏</span>
+              ) : (
+                <span>
+                  <StarOutlined />
+                  收藏
+                </span>
+              )}
             </span>
             <span className={styles.action} onClick={() => handleCopy(id)}>
               <CopyOutlined />
