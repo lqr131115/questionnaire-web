@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Card, Space, Button, Tag } from "antd";
+import { Card, Space, Button, Tag, Popconfirm } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   EditOutlined,
@@ -8,6 +8,7 @@ import {
   CopyOutlined,
   DeleteOutlined,
   StarFilled,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import styles from "./QuestionCard.module.scss";
 type QuestionCardProps = {
@@ -89,14 +90,22 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
                 </span>
               )}
             </span>
+
             <span className={styles.action} onClick={() => handleCopy(id)}>
               <CopyOutlined />
               复制
             </span>
-            <span className={styles.action} onClick={() => handleDelete(id)}>
-              <DeleteOutlined />
-              删除
-            </span>
+            <Popconfirm
+              title="Delete"
+              description="Are you sure to delete this questionnaire?"
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+              onConfirm={() => handleDelete(id)}
+            >
+              <span className={styles.action}>
+                <DeleteOutlined />
+                删除
+              </span>
+            </Popconfirm>
           </Space>
         </div>
       </Card>
