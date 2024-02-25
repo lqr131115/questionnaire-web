@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Card, Space } from "antd";
+import { Card, Space, Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   EditOutlined,
@@ -7,6 +7,7 @@ import {
   StarOutlined,
   CopyOutlined,
   DeleteOutlined,
+  StarFilled,
 } from "@ant-design/icons";
 import styles from "./QuestionCard.module.scss";
 type QuestionCardProps = {
@@ -31,17 +32,17 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
     del && del(id);
   }
   const cardTitle = (
-    <Space size={10}>
-      <span>{title}</span>
-      {isStar && <StarOutlined style={{ color: "orange" }} />}
+    <Space size={5}>
+      <Button type="link">{title}</Button>
+      {isStar && <StarFilled style={{ color: "gold" }} />}
     </Space>
   );
   const extra = (
     <Space size={10}>
       {isPublished ? (
-        <span style={{ color: "green" }}>已发布</span>
+        <Tag color="volcano">已发布</Tag>
       ) : (
-        <span>未发布</span>
+        <Tag color="cyan">未发布</Tag>
       )}
       <span>
         答卷:&nbsp;
@@ -80,7 +81,7 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
               onClick={() => console.log("收藏" + id)}
             >
               {isStar ? (
-                <span style={{ color: "orange" }}>取消收藏</span>
+                <span>取消收藏</span>
               ) : (
                 <span>
                   <StarOutlined />
