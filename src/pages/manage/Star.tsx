@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import styles from "./List.module.scss";
 import type { SearchProps } from "antd/es/input/Search";
 import QuestionCard from "../../components/QuestionCard";
+import styles from "./Star.module.scss";
 import QuestionHeader from "../../components/QuestionHeader";
 const mockList = [
   {
@@ -12,8 +12,16 @@ const mockList = [
     answerCount: 4,
     createAt: "2021-05-01",
   },
+  {
+    id: "q3",
+    title: "Question 3",
+    isPublished: false,
+    isStar: true,
+    answerCount: 2,
+    createAt: "2021-02-01",
+  },
 ];
-const Star: FC = () => {
+const List: FC = () => {
   const [questionList, setQuestionList] = useState(mockList);
   function doCopy(id: string) {
     alert(`复制问卷${id}`);
@@ -27,7 +35,7 @@ const Star: FC = () => {
 
   return (
     <>
-      <QuestionHeader title="收藏" search={onSearch} />
+      <QuestionHeader title="我的收藏" search={onSearch} />
       <div className={styles.container}>
         {questionList.map((item) => (
           <QuestionCard key={item.id} {...item} copy={doCopy} del={doDelete} />
@@ -37,4 +45,4 @@ const Star: FC = () => {
   );
 };
 
-export default Star;
+export default List;

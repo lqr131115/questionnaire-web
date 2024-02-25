@@ -1,15 +1,4 @@
 .content {
   display: flex;
   justify-content: space-between;
-
-  .action {
-    &:hover {
-      cursor: pointer;
-      color: #1677ff;
-    }
-
-    .star {
-      color: red;
-    }
-  }
 }

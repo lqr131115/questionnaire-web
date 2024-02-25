@@ -20,17 +20,30 @@ type QuestionCardProps = {
   createAt: string;
   copy?: (id: string) => void;
   del?: (id: string) => void;
+  star?: (id: string, value: boolean) => void;
 };
 
 const QuestionCard: FC<QuestionCardProps> = (props) => {
   const navigator = useNavigate();
-  const { id, title, isStar, isPublished, answerCount, createAt, copy, del } =
-    props;
+  const {
+    id,
+    title,
+    isStar,
+    isPublished,
+    answerCount,
+    createAt,
+    copy,
+    del,
+    star,
+  } = props;
   function handleCopy(id: string) {
     copy && copy(id);
   }
   function handleDelete(id: string) {
     del && del(id);
+  }
+  function handleStar(id: string, value: boolean) {
+    star && star(id, value);
   }
   const cardTitle = (
     <Space size={5}>
@@ -60,51 +73,53 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
         extra={extra}
       >
         <div className={styles.content}>
-          <Space size={20}>
-            <span
-              className={styles.action}
+          <Space>
+            <Button
+              type="link"
+              icon={<EditOutlined />}
               onClick={() => navigator(`/question/edit/${id}`)}
             >
-              <EditOutlined />
               编辑
-            </span>
-            <span
-              className={styles.action}
+            </Button>
+            <Button
+              disabled={answerCount === 0}
+              type="link"
+              icon={<LineChartOutlined />}
               onClick={() => navigator(`/question/stat/${id}`)}
             >
-              <LineChartOutlined />
               统计
-            </span>
+            </Button>
           </Space>
           <Space>
-            <span
-              className={styles.action}
-              onClick={() => console.log("收藏" + id)}
+            {isStar ? (
+              <Button type="link" onClick={() => handleStar(id, false)}>
+                取消收藏
+              </Button>
+            ) : (
+              <Button
+                type="link"
+                icon={<StarOutlined />}
+                onClick={() => handleStar(id, true)}
+              >
+                收藏
+              </Button>
+            )}
+            <Button
+              type="link"
+              icon={<CopyOutlined />}
+              onClick={() => handleCopy(id)}
             >
-              {isStar ? (
-                <span>取消收藏</span>
-              ) : (
-                <span>
-                  <StarOutlined />
-                  收藏
-                </span>
-              )}
-            </span>
-
-            <span className={styles.action} onClick={() => handleCopy(id)}>
-              <CopyOutlined />
               复制
-            </span>
+            </Button>
             <Popconfirm
               title="Delete"
               description="Are you sure to delete this questionnaire?"
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
               onConfirm={() => handleDelete(id)}
             >
-              <span className={styles.action}>
-                <DeleteOutlined />
+              <Button type="link" icon={<DeleteOutlined />} danger>
                 删除
-              </span>
+              </Button>
             </Popconfirm>
           </Space>
         </div>

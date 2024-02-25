@@ -23,7 +23,7 @@ function getItem(
 
 const items = [
   getItem("我的问卷", "list", <UnorderedListOutlined />),
-  getItem("收藏", "star", <StarOutlined />),
+  getItem("我的收藏", "star", <StarOutlined />),
   getItem("回收站", "trash", <DeleteOutlined />),
 ];
 
