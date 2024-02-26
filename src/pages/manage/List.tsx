@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./List.module.scss";
+import { useTitle } from "ahooks";
 import type { SearchProps } from "antd/es/input/Search";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
@@ -30,6 +31,7 @@ const mockList = [
   },
 ];
 const List: FC = () => {
+  useTitle("我的问卷");
   const [questionList, setQuestionList] = useState(mockList);
   function doStar(id: string, value: boolean) {
     alert(`${value ? "收藏" : "取消收藏"}问卷${id}`);

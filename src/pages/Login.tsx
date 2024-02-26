@@ -2,8 +2,10 @@ import React, { FC } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Link } from "react-router-dom";
+import { useTitle } from "ahooks";
 import styles from "./Login.module.scss";
 const Login: FC = () => {
+  useTitle("登录");
   const onFinish = (values: unknown) => {
     console.log("Received values of form: ", values);
   };
@@ -14,7 +16,6 @@ const Login: FC = () => {
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           style={{ width: "350px" }}
         >

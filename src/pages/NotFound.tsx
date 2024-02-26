@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useTitle } from "ahooks";
 const NotFound: FC = () => {
+  useTitle("404");
   const nav = useNavigate();
   return (
     <Result

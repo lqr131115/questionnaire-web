@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { useTitle } from "ahooks";
 import type { SearchProps } from "antd/es/input/Search";
 import QuestionCard from "../../components/QuestionCard";
 import styles from "./Star.module.scss";
@@ -22,6 +23,7 @@ const mockList = [
   },
 ];
 const List: FC = () => {
+  useTitle("我的收藏");
   const [questionList, setQuestionList] = useState(mockList);
   function doCopy(id: string) {
     alert(`复制问卷${id}`);

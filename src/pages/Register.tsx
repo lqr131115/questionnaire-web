@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 import { Button, Form, Input } from "antd";
+import { useTitle } from "ahooks";
 import { Link } from "react-router-dom";
 import styles from "./Register.module.scss";
 
 const Register: FC = () => {
+  useTitle("注册");
   const [form] = Form.useForm();
-
   const onFinish = (values: unknown) => {
     console.log("Received values of form: ", values);
   };
