@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
-import styles from "./List.module.scss";
 import { useTitle } from "ahooks";
+import { Empty } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
+import type { Questionnaire } from "./manage";
+import styles from "./List.module.scss";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
-const mockList = [
+const mockList: Questionnaire[] = [
   {
     id: "q1",
     title: "Question 1",
@@ -51,15 +53,17 @@ const List: FC = () => {
     <>
       <QuestionHeader title="我的问卷" search={onSearch} />
       <div className={styles.container}>
-        {questionList.map((item) => (
-          <QuestionCard
-            key={item.id}
-            {...item}
-            copy={doCopy}
-            del={doDelete}
-            star={doStar}
-          />
-        ))}
+        {questionList.length === 0 && <Empty />}
+        {questionList.length > 0 &&
+          questionList.map((item) => (
+            <QuestionCard
+              key={item.id}
+              {...item}
+              copy={doCopy}
+              del={doDelete}
+              star={doStar}
+            />
+          ))}
       </div>
     </>
   );
