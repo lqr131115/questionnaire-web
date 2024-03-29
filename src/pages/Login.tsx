@@ -1,13 +1,24 @@
 import React, { FC } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTitle } from "ahooks";
 import styles from "./Login.module.scss";
+type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: string;
+};
 const Login: FC = () => {
   useTitle("登录");
-  const onFinish = (values: unknown) => {
+  const navigate = useNavigate();
+  const onFinish = (values: FieldType) => {
     console.log("Received values of form: ", values);
+    const { username, password } = values;
+    if (username === "admin" && password === "123123") {
+      console.log("登录成功");
+      navigate("/manage/list");
+    }
   };
   return (
     <>
@@ -19,7 +30,7 @@ const Login: FC = () => {
           onFinish={onFinish}
           style={{ width: "350px" }}
         >
-          <Form.Item
+          <Form.Item<FieldType>
             name="username"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
@@ -28,7 +39,7 @@ const Login: FC = () => {
               placeholder="Username"
             />
           </Form.Item>
-          <Form.Item
+          <Form.Item<FieldType>
             name="password"
             rules={[{ required: true, message: "Please input your Password!" }]}
           >
@@ -38,7 +49,7 @@ const Login: FC = () => {
               placeholder="Password"
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item<FieldType>>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
