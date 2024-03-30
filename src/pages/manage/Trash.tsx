@@ -1,11 +1,14 @@
 import React, { FC, useState } from "react";
 import { useTitle } from "ahooks";
-import { Empty, Table, Tag, Button, Flex } from "antd";
+import { Empty, Table, Tag, Button, Flex, Popconfirm } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
 import QuestionHeader from "../../components/QuestionHeader";
+import { SEARCH_LIST_PARAM_KEY } from "../../constants";
 const mockList: Questionnaire[] = [
   {
     id: "q1",
@@ -67,14 +70,20 @@ const Trash: FC = () => {
   const [questionList, setQuestionList] = useState<Questionnaire[]>(mockList);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const noSelected = selectedRowKeys.length === 0;
+  const navigator = useNavigate();
+  const { pathname } = useLocation();
   const rowSelection = {
     selectedRowKeys,
     onChange: (newSelectedRowKeys: React.Key[]) => {
       setSelectedRowKeys(newSelectedRowKeys);
     },
   };
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
-    console.log(info?.source, value);
+
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    navigator({
+      pathname,
+      search: `${SEARCH_LIST_PARAM_KEY}=${value}`,
+    });
   };
   const handleRestore = () => {
     setQuestionList(
@@ -99,14 +108,16 @@ const Trash: FC = () => {
           <Button type="primary" disabled={noSelected} onClick={handleRestore}>
             恢复
           </Button>
-          <Button
-            type="primary"
-            disabled={noSelected}
-            danger
-            onClick={handleDeleteCompletely}
+          <Popconfirm
+            title="Delete"
+            description="Are you sure to delete completely?"
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            onConfirm={handleDeleteCompletely}
           >
-            彻底删除
-          </Button>
+            <Button type="primary" disabled={noSelected} danger>
+              彻底删除
+            </Button>
+          </Popconfirm>
         </Flex>
         {questionList.length === 0 && <Empty />}
         {questionList.length > 0 && (

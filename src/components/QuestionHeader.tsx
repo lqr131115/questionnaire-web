@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { Input } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
 import styles from "./QuestionHeader.module.scss";
-
 const { Search } = Input;
 type QuestionHeaderProps = {
   title: string;

@@ -1,11 +1,13 @@
 import React, { FC, useState } from "react";
 import { useTitle } from "ahooks";
 import { Empty } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { SearchProps } from "antd/es/input/Search";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
+import { SEARCH_LIST_PARAM_KEY } from "../../constants";
 const mockList: Questionnaire[] = [
   {
     id: "q1",
@@ -32,9 +34,12 @@ const mockList: Questionnaire[] = [
     createAt: "2021-02-01",
   },
 ];
+
 const List: FC = () => {
   useTitle("我的问卷");
   const [questionList, setQuestionList] = useState(mockList);
+  const navigator = useNavigate();
+  const { pathname } = useLocation();
   function doStar(id: string, value: boolean) {
     alert(`${value ? "收藏" : "取消收藏"}问卷${id}`);
   }
@@ -45,8 +50,11 @@ const List: FC = () => {
     setQuestionList(questionList.filter((item) => item.id !== id));
   }
 
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
-    console.log(info?.source, value);
+  const onSearch: SearchProps["onSearch"] = (value: string) => {
+    navigator({
+      pathname,
+      search: `${SEARCH_LIST_PARAM_KEY}=${value}`,
+    });
   };
 
   return (
