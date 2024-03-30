@@ -12,12 +12,10 @@ type RequestBaseUrlConfig = {
 
 export const env = process.env.NODE_ENV;
 
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-
 const requestBaseUrlConfig: RequestBaseUrlConfig = {
   development: {
     mockUrl: "/mock",
-    baseUrl: "/qn",
+    baseUrl: "/mock",
   },
   production: {
     mockUrl: "/qn",
@@ -26,7 +24,7 @@ const requestBaseUrlConfig: RequestBaseUrlConfig = {
 };
 
 export const baseURLConfig = {
-  mock: false,
+  mock: true,
   env,
   ...requestBaseUrlConfig[env],
 };

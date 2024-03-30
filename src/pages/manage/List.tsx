@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useTitle } from "ahooks";
 import { Empty } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,36 +8,11 @@ import styles from "./List.module.scss";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
 import { SEARCH_LIST_PARAM_KEY } from "../../constants";
-const mockList: Questionnaire[] = [
-  {
-    id: "q1",
-    title: "Question 1",
-    isPublished: true,
-    isStar: false,
-    answerCount: 5,
-    createAt: "2021-01-01",
-  },
-  {
-    id: "q2",
-    title: "Question 2",
-    isPublished: false,
-    isStar: true,
-    answerCount: 0,
-    createAt: "2021-05-01",
-  },
-  {
-    id: "q3",
-    title: "Question 3",
-    isPublished: false,
-    isStar: true,
-    answerCount: 2,
-    createAt: "2021-02-01",
-  },
-];
+import { getQNList } from "../../api";
 
 const List: FC = () => {
   useTitle("我的问卷");
-  const [questionList, setQuestionList] = useState(mockList);
+  const [questionList, setQuestionList] = useState([]);
   const navigator = useNavigate();
   const { pathname } = useLocation();
   function doStar(id: string, value: boolean) {
@@ -47,7 +22,9 @@ const List: FC = () => {
     alert(`复制问卷${id}`);
   }
   function doDelete(id: string) {
-    setQuestionList(questionList.filter((item) => item.id !== id));
+    setQuestionList(
+      questionList.filter((item: Questionnaire) => item.id !== id),
+    );
   }
 
   const onSearch: SearchProps["onSearch"] = (value: string) => {
@@ -57,13 +34,17 @@ const List: FC = () => {
     });
   };
 
+  useEffect(() => {
+    getQNList().then((res) => setQuestionList(res.data));
+  }, []);
+
   return (
     <>
       <QuestionHeader title="我的问卷" search={onSearch} />
       <div className={styles.container}>
         {questionList.length === 0 && <Empty />}
         {questionList.length > 0 &&
-          questionList.map((item) => (
+          questionList.map((item: Questionnaire) => (
             <QuestionCard
               key={item.id}
               {...item}

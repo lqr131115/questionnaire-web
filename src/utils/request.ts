@@ -3,7 +3,7 @@ import { RequestEnum, ResultEnum } from "../constants/enum";
 import { baseURLConfig } from "../constants/config";
 
 const service = axios.create({
-  baseURL: baseURLConfig.mockUrl,
+  baseURL: baseURLConfig.baseUrl,
   timeout: 3000,
 });
 
