@@ -9,9 +9,6 @@
 /coverage
 /test
 
-# mock
-/_mock
-
 # production
 /build
 

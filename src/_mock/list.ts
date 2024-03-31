@@ -4,7 +4,6 @@ interface QNListResponse {
   data: QNItem[];
   code: number;
   msg?: string;
-  [key: string]: unknown;
 }
 
 interface QNItem {
@@ -16,34 +15,18 @@ interface QNItem {
   createAt: string;
 }
 
+const randomCount = (3 + Math.random() * 5) >> 0;
+
 export const getQNListResult = () => {
   const res: QNListResponse = {
-    data: [
-      {
-        id: "q1",
-        title: "Question 1",
-        isPublished: true,
-        isStar: false,
-        answerCount: 5,
-        createAt: "2021-01-01",
-      },
-      {
-        id: "q2",
-        title: "Question 2",
-        isPublished: false,
-        isStar: true,
-        answerCount: 0,
-        createAt: "2021-05-01",
-      },
-      {
-        id: "q3",
-        title: "Question 3",
-        isPublished: false,
-        isStar: true,
-        answerCount: 2,
-        createAt: "2021-02-01",
-      },
-    ],
+    data: Array.from({ length: randomCount }, () => ({
+      id: Mock.mock("@guid"),
+      title: Mock.mock("@ctitle(5, 10)"),
+      isPublished: Mock.mock("@boolean"),
+      isStar: Mock.mock("@boolean"),
+      answerCount: Mock.mock("@integer(0, 100)"),
+      createAt: Mock.mock("@datetime"),
+    })),
     code: 200,
   };
   return Mock.mock(res);
