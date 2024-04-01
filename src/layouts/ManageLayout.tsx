@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   PlusOutlined,
@@ -6,7 +6,8 @@ import {
   StarOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Button, Divider, Space } from "antd";
+import { Button, Divider, Space, message } from "antd";
+import { createQN } from "../api";
 import styles from "./ManageLayout.module.scss";
 
 function getItem(
@@ -30,10 +31,29 @@ const items = [
 const ManageLayout: FC = () => {
   const navigator = useNavigate();
   const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false);
+  async function handleCreateQn() {
+    try {
+      setLoading(true);
+      const { data } = (await createQN()) as any;
+      navigator(`/question/edit/${data.id}`);
+      message.success("创建成功");
+    } catch (err) {
+      console.log("handleCreateQn", err);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <Button type="primary" icon={<PlusOutlined />} size="large">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="large"
+          disabled={loading}
+          onClick={handleCreateQn}
+        >
           新建问卷
         </Button>
         <Divider />

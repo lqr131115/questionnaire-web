@@ -7,9 +7,11 @@ const Edit: FC = () => {
   const params = useParams();
   const [detail, setDetail] = useState<any>({});
   useEffect(() => {
-    getQNDetail(params.id as string).then((res) => {
-      setDetail(res.data);
-    });
+    getQNDetail(params.id as string)
+      .then((res) => {
+        setDetail(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
   return (
     <>

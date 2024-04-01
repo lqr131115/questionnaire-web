@@ -1,3 +1,4 @@
+import { message, notification } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
 import { RequestEnum, ResultEnum } from "../constants/enum";
 import { baseURLConfig } from "../constants/config";
@@ -22,10 +23,12 @@ service.interceptors.response.use(
     if (code === ResultEnum.SUCCESS) {
       return res.data;
     } else {
+      message.error(msg);
       return Promise.reject(new Error(msg));
     }
   },
   (err) => {
+    notification.error(err.message);
     return Promise.reject(new Error(err.message));
   },
 );

@@ -14,6 +14,8 @@ export enum ResultEnum {
 export enum RequestEnum {
   GET = "GET",
   POST = "POST",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
 }
 
 /**
