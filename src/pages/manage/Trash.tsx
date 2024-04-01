@@ -54,7 +54,7 @@ const Trash: FC = () => {
   const handleDeleteCompletely = () => {
     console.log("handleDeleteCompletely");
   };
-  const { loading, data: resData } = useQNList();
+  const { loading, data: resData } = useQNList({ isDeleted: 1 });
   const { data: questionList, total } = (resData || {}) as any;
 
   return (

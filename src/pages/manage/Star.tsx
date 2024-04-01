@@ -16,7 +16,7 @@ const List: FC = () => {
     alert(`删除问卷${id}`);
   }
 
-  const { loading, data: resData } = useQNList();
+  const { loading, data: resData } = useQNList({ isStar: true });
   const { data: questionList, total } = (resData || {}) as any;
 
   return (

@@ -7,11 +7,12 @@ export const QUESTIONNAIRE_DETAIL_URL = "/question/:id";
 
 export type QNListSearchOptions = {
   keyword: string;
-  // isStar
+  isStar: boolean;
+  isDeleted: number;
 };
 
-export const getQNList = (params: Partial<QNListSearchOptions>) =>
-  request({ method: RequestEnum.GET, url: QUESTIONNAIRE_LIST_URL, params });
+export const getQNList = (data: Partial<QNListSearchOptions>) =>
+  request({ method: RequestEnum.GET, url: QUESTIONNAIRE_LIST_URL, data });
 
 export const getQNDetail = (id: string) =>
   request({
