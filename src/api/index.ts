@@ -9,6 +9,8 @@ export type QNListSearchOptions = {
   keyword: string;
   isStar: boolean;
   isDeleted: number;
+  page: number;
+  pageSize: number;
 };
 
 export const getQNList = (data: Partial<QNListSearchOptions>) =>
