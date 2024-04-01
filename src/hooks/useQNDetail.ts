@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useRequest } from "ahooks";
 import { getQNDetail } from "../api";
 const useQNDetail = () => {
-  const params = useParams();
-  const [detail, setDetail] = useState({});
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    getQNDetail(params.id as string)
-      .then((res) => {
-        setDetail(res.data);
-      })
-      .catch((err) => console.log("useQNDetail", err))
-      .finally(() => setLoading(false));
-  }, []);
-  return { detail, loading };
+  const { id } = useParams();
+  async function _getQNDetail() {
+    const res = await getQNDetail(id as string);
+    return res.data;
+  }
+  const { loading, data, error } = useRequest(_getQNDetail);
+  return { loading, data, error };
 };
 
 export default useQNDetail;

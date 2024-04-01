@@ -1,12 +1,13 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
+import { useRequest } from "ahooks";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Button, Divider, Space, message } from "antd";
 import {
   PlusOutlined,
   UnorderedListOutlined,
   StarOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Button, Divider, Space, message } from "antd";
 import { createQN } from "../api";
 import styles from "./ManageLayout.module.scss";
 
@@ -31,19 +32,15 @@ const items = [
 const ManageLayout: FC = () => {
   const navigator = useNavigate();
   const { pathname } = useLocation();
-  const [loading, setLoading] = useState(false);
-  async function handleCreateQn() {
-    try {
-      setLoading(true);
-      const { data } = (await createQN()) as any;
-      navigator(`/question/edit/${data.id}`);
+  const { loading, run: handleCreateQn } = useRequest(createQN, {
+    // debounceWait: 500,
+    manual: true,
+    onSuccess(result) {
+      console.log("result", result);
+      navigator(`/question/edit/${(result as any).id}`);
       message.success("创建成功");
-    } catch (err) {
-      console.log("handleCreateQn", err);
-    } finally {
-      setLoading(false);
-    }
-  }
+    },
+  });
   return (
     <div className={styles.container}>
       <div className={styles.left}>

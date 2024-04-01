@@ -4,12 +4,12 @@ import { Spin } from "antd";
 import useQNDetail from "../../../hooks/useQNDetail";
 const Stat: FC = () => {
   useTitle("问卷统计");
-  const { detail, loading } = useQNDetail();
+  const { loading, data: detail } = useQNDetail();
   return (
     <>
       <h3>问卷统计</h3>
       <Spin spinning={loading} size="large">
-        <div>{(detail as any).title}</div>
+        <div>{detail && (detail as any).title}</div>
       </Spin>
     </>
   );
