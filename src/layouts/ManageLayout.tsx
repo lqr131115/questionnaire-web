@@ -36,7 +36,6 @@ const ManageLayout: FC = () => {
     // debounceWait: 500,
     manual: true,
     onSuccess(result) {
-      console.log("result", result);
       navigator(`/question/edit/${(result as any).id}`);
       message.success("创建成功");
     },
