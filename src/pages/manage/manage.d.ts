@@ -5,4 +5,5 @@ export type Questionnaire = {
   isStar: boolean;
   answerCount: number;
   createAt: string;
+  [key in string]: any;
 };

@@ -1,19 +1,14 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import { Empty, Spin } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
-import type { SearchProps } from "antd/es/input/Search";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
 import { useQNList } from "../../hooks";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
-import { SEARCH_LIST_PARAM_KEY } from "../../constants";
 
 const List: FC = () => {
   useTitle("我的问卷");
-  const navigator = useNavigate();
-  const { pathname } = useLocation();
   function doStar(id: string, value: boolean) {
     alert(`${value ? "收藏" : "取消收藏"}问卷${id}`);
   }
@@ -24,18 +19,11 @@ const List: FC = () => {
     alert(`删除问卷${id}`);
   }
 
-  const onSearch: SearchProps["onSearch"] = (value: string) => {
-    navigator({
-      pathname,
-      search: `${SEARCH_LIST_PARAM_KEY}=${value}`,
-    });
-  };
-
   const { loading, data: resData } = useQNList();
   const { data: questionList, total } = (resData || {}) as any;
   return (
     <>
-      <QuestionHeader title="我的问卷" search={onSearch} />
+      <QuestionHeader title="我的问卷" />
       <div className={styles.container}>
         <h1>{total}</h1>
         <Spin spinning={loading} size="large">
@@ -51,7 +39,6 @@ const List: FC = () => {
               />
             ))}
         </Spin>
-        ;
       </div>
     </>
   );
