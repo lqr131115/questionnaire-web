@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { useTitle } from "ahooks";
+import { useRequest, useTitle } from "ahooks";
+import { login } from "../api";
 import styles from "./Login.module.scss";
 type FieldType = {
   username?: string;
@@ -12,19 +13,30 @@ type FieldType = {
 const Login: FC = () => {
   useTitle("登录");
   const navigate = useNavigate();
-  const onFinish = (values: FieldType) => {
-    console.log("Received values of form: ", values);
-    const { username, password } = values;
-    if (username === "admin" && password === "123123") {
-      console.log("登录成功");
-      navigate("/manage/list");
-    }
-  };
+  const [form] = Form.useForm();
+
+  const { loading, run: onFinish } = useRequest(
+    async () => {
+      const { username, password } = form.getFieldsValue();
+      return await login({ username, password });
+    },
+    {
+      manual: true,
+      onSuccess(res: any) {
+        const { token } = res.data;
+        console.log("存储Token", token);
+        navigate("/manage/list");
+        message.success("登录成功");
+      },
+    },
+  );
+
   return (
     <>
       <div className={styles.login}>
         <h1>登录</h1>
         <Form
+          form={form}
           name="normal_login"
           className="login-form"
           onFinish={onFinish}
@@ -61,6 +73,7 @@ const Login: FC = () => {
               htmlType="submit"
               className="login-form-button"
               style={{ width: "100%" }}
+              disabled={loading}
             >
               Log in
             </Button>

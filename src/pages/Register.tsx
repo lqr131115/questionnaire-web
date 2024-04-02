@@ -1,16 +1,27 @@
 import React, { FC } from "react";
-import { Button, Form, Input } from "antd";
-import { useTitle } from "ahooks";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { useRequest, useTitle } from "ahooks";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../api";
 import styles from "./Register.module.scss";
 
 const Register: FC = () => {
   useTitle("注册");
   const [form] = Form.useForm();
-  const onFinish = (values: unknown) => {
-    console.log("Received values of form: ", values);
-  };
-
+  const navigator = useNavigate();
+  const { loading, run: onFinish } = useRequest(
+    async () => {
+      const { username, password, rePassword } = form.getFieldsValue();
+      return await register({ username, password, rePassword });
+    },
+    {
+      manual: true,
+      onSuccess() {
+        navigator("/login");
+        message.success("注册成功");
+      },
+    },
+  );
   return (
     <>
       <div className={styles.register}>
@@ -50,7 +61,7 @@ const Register: FC = () => {
           </Form.Item>
 
           <Form.Item
-            name="confirm"
+            name="rePassword"
             label="Confirm Password"
             dependencies={["password"]}
             hasFeedback
@@ -81,7 +92,12 @@ const Register: FC = () => {
             </span>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+              disabled={loading}
+            >
               Register
             </Button>
           </Form.Item>
