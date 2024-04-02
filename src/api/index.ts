@@ -47,3 +47,10 @@ export const deleteQN = (id: string, data: Partial<QNListSearchOptions> = {}) =>
     url: `${QUESTIONNAIRE_URL}/${id}`,
     data,
   });
+
+export const batchDeleteQN = (ids: string[]) =>
+  request({
+    method: RequestEnum.DELETE,
+    url: `${QUESTIONNAIRE_URL}`,
+    data: { ids },
+  });

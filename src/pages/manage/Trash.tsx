@@ -5,7 +5,7 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
-import { deleteQN } from "../../api";
+import { deleteQN, batchDeleteQN } from "../../api";
 import { useQNList } from "../../hooks";
 import QuestionHeader from "../../components/QuestionHeader";
 import QNListPagination from "../../components/QNListPagination";
@@ -70,9 +70,7 @@ const Trash: FC = () => {
   const { loading: completelyDelLoading, run: handleDeleteCompletely } =
     useRequest(
       async () => {
-        for await (const id of selectedRowKeys) {
-          await deleteQN(id as string, { isDeleted: -1 });
-        }
+        return await batchDeleteQN(selectedRowKeys as string[]);
       },
       {
         manual: true,
