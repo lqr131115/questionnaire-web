@@ -1,12 +1,13 @@
 import React, { FC, useState } from "react";
-import { useTitle } from "ahooks";
+import { useRequest, useTitle } from "ahooks";
 import { Empty, Table, Tag, Button, Flex, Popconfirm, Spin } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
-import QuestionHeader from "../../components/QuestionHeader";
+import { deleteQN } from "../../api";
 import { useQNList } from "../../hooks";
+import QuestionHeader from "../../components/QuestionHeader";
 import QNListPagination from "../../components/QNListPagination";
 
 const columns: TableColumnsType<Questionnaire> = [
@@ -49,21 +50,49 @@ const Trash: FC = () => {
     },
   };
 
-  const handleRestore = () => {
-    console.log("handleRestore");
-  };
-  const handleDeleteCompletely = () => {
-    console.log("handleDeleteCompletely");
-  };
-  const { loading, data: resData } = useQNList({ isDeleted: 1 });
+  const { loading, data: resData, refresh } = useQNList({ isDeleted: 1 });
   const { data: questionList, total } = (resData || {}) as any;
+
+  const { loading: recoverLoading, run: handleRecover } = useRequest(
+    async () => {
+      for await (const id of selectedRowKeys) {
+        await deleteQN(id as string, { isDeleted: 0 });
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 200,
+      onSuccess() {
+        refresh();
+      },
+    },
+  );
+  const { loading: completelyDelLoading, run: handleDeleteCompletely } =
+    useRequest(
+      async () => {
+        for await (const id of selectedRowKeys) {
+          await deleteQN(id as string, { isDeleted: -1 });
+        }
+      },
+      {
+        manual: true,
+        debounceWait: 200,
+        onSuccess() {
+          refresh();
+        },
+      },
+    );
 
   return (
     <>
       <QuestionHeader title="回收站" />
       <div className={styles.container}>
-        <Flex gap="small">
-          <Button type="primary" disabled={noSelected} onClick={handleRestore}>
+        <Flex gap="small" style={{ marginBottom: 20 }}>
+          <Button
+            type="primary"
+            disabled={noSelected || recoverLoading}
+            onClick={handleRecover}
+          >
             恢复
           </Button>
           <Popconfirm
@@ -72,7 +101,11 @@ const Trash: FC = () => {
             icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             onConfirm={handleDeleteCompletely}
           >
-            <Button type="primary" disabled={noSelected} danger>
+            <Button
+              type="primary"
+              disabled={noSelected || completelyDelLoading}
+              danger
+            >
               彻底删除
             </Button>
           </Popconfirm>

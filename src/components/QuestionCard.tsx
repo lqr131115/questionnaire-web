@@ -66,7 +66,7 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const { loading: isDeletedLoading, run: handleDelete } = useRequest(
     async () => {
-      const data = await deleteQN(id);
+      const data = await deleteQN(id, { isDeleted: 1 });
       return data;
     },
     {

@@ -25,8 +25,8 @@ export const useQNList = (options: Partial<OptionType> = {}) => {
     );
     return await getQNList({ keyword, isStar, isDeleted, page, pageSize });
   }
-  const { loading, data, error } = useRequest(_getQNList, {
+  const { loading, data, error, refresh } = useRequest(_getQNList, {
     refreshDeps: [searchParams],
   });
-  return { loading, data, error };
+  return { loading, data, error, refresh };
 };

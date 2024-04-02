@@ -41,8 +41,9 @@ export const copyQN = (id: string) =>
     url: `${QUESTIONNAIRE_URL}/copy/${id}`,
   });
 
-export const deleteQN = (id: string) =>
+export const deleteQN = (id: string, data: Partial<QNListSearchOptions> = {}) =>
   request({
     method: RequestEnum.DELETE,
     url: `${QUESTIONNAIRE_URL}/${id}`,
+    data,
   });
