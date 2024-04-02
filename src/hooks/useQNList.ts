@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { useRequest } from "ahooks";
 import { getQNList } from "../api";
 import {
-  SEARCH_LIST_PARAM_KEY,
+  SEARCH_LIST_KEYWORD_KEY,
   SEARCH_LIST_PAGE_KEY,
   SEARCH_LIST_PAGESIZE_KEY,
   SEARCH_LIST_DEFAULT_PAGESIZE,
@@ -16,7 +16,7 @@ export const useQNList = (options: Partial<OptionType> = {}) => {
   const { isStar, isDeleted = 0 } = options;
   const [searchParams] = useSearchParams();
   async function _getQNList() {
-    const keyword = searchParams.get(SEARCH_LIST_PARAM_KEY) || "";
+    const keyword = searchParams.get(SEARCH_LIST_KEYWORD_KEY) || "";
 
     const page = parseInt(searchParams.get(SEARCH_LIST_PAGE_KEY) || "1");
     const pageSize = parseInt(
