@@ -13,7 +13,7 @@ export type QNListSearchOptions = {
   pageSize: number;
 };
 
-export const getQNList = (data: Partial<QNListSearchOptions>) =>
+export const getQNList = (data: Partial<QNListSearchOptions> = {}) =>
   request({ method: RequestEnum.GET, url: QUESTIONNAIRE_LIST_URL, data });
 
 export const getQNDetail = (id: string) =>
