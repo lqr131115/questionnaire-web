@@ -15,15 +15,6 @@ const { Text } = Typography;
 
 const List: FC = () => {
   useTitle("我的问卷");
-  function doStar(id: string, value: boolean) {
-    alert(`${value ? "收藏" : "取消收藏"}问卷${id}`);
-  }
-  function doCopy(id: string) {
-    alert(`复制问卷${id}`);
-  }
-  function doDelete(id: string) {
-    alert(`删除问卷${id}`);
-  }
 
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState<number>(Number.MAX_SAFE_INTEGER);
@@ -104,13 +95,7 @@ const List: FC = () => {
           {qnList?.length > 0 && (
             <>
               {qnList.map((item: Questionnaire) => (
-                <QuestionCard
-                  key={item.id}
-                  {...item}
-                  copy={doCopy}
-                  del={doDelete}
-                  star={doStar}
-                />
+                <QuestionCard key={item.id} {...item} />
               ))}
               <Flex justify="center" align="center" ref={loadMoreRef}>
                 {noMore ? <Text>已加载全部</Text> : <Text>下拉加载更多</Text>}

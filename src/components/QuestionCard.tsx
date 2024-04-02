@@ -1,5 +1,6 @@
-import React, { FC } from "react";
-import { Card, Space, Button, Tag, Popconfirm } from "antd";
+import React, { FC, useState } from "react";
+import { Card, Space, Button, Tag, Popconfirm, message } from "antd";
+import { useRequest } from "ahooks";
 import { useNavigate } from "react-router-dom";
 import {
   EditOutlined,
@@ -11,6 +12,7 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import styles from "./QuestionCard.module.scss";
+import { copyQN, deleteQN, patchQN } from "../api";
 type QuestionCardProps = {
   id: string;
   title: string;
@@ -19,8 +21,6 @@ type QuestionCardProps = {
   answerCount: number;
   createAt: string;
   copy?: (id: string) => void;
-  del?: (id: string) => void;
-  star?: (id: string, value: boolean) => void;
 };
 
 const QuestionCard: FC<QuestionCardProps> = (props) => {
@@ -28,23 +28,55 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
   const {
     id,
     title,
-    isStar,
+    isStar: defaultIsStar,
     isPublished,
     answerCount,
     createAt,
-    copy,
-    del,
-    star,
   } = props;
-  function handleCopy(id: string) {
-    copy && copy(id);
-  }
-  function handleDelete(id: string) {
-    del && del(id);
-  }
-  function handleStar(id: string, value: boolean) {
-    star && star(id, value);
-  }
+  const [isStar, setIsStar] = useState(defaultIsStar);
+  const { loading: isStarLoading, run: handleStar } = useRequest(
+    async () => {
+      const data = await patchQN(id, { isStar: !isStar });
+      return data;
+    },
+    {
+      manual: true,
+      onSuccess() {
+        setIsStar(!isStar);
+        !isStar && message.success("收藏成功");
+      },
+    },
+  );
+  const { loading: copyLoading, run: handleCopy } = useRequest(
+    async () => {
+      const data = await copyQN(id);
+      return data;
+    },
+    {
+      manual: true,
+      onSuccess(res: any) {
+        const { id } = res.data || {};
+        if (id) {
+          navigator(`/question/edit/${id}`);
+          message.success("复制成功");
+        }
+      },
+    },
+  );
+  const [isDeleted, setIsDeleted] = useState(false);
+  const { loading: isDeletedLoading, run: handleDelete } = useRequest(
+    async () => {
+      const data = await deleteQN(id);
+      return data;
+    },
+    {
+      manual: true,
+      onSuccess() {
+        setIsDeleted(true);
+        message.success("删除成功");
+      },
+    },
+  );
   const cardTitle = (
     <Space size={5}>
       <Button type="link">{title}</Button>
@@ -65,6 +97,10 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
       <span>{createAt}</span>
     </Space>
   );
+
+  // 已删除  不再渲染
+  if (isDeleted) return null;
+
   return (
     <>
       <Card
@@ -92,14 +128,15 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
           </Space>
           <Space>
             {isStar ? (
-              <Button type="link" onClick={() => handleStar(id, false)}>
+              <Button type="link" disabled={isStarLoading} onClick={handleStar}>
                 取消收藏
               </Button>
             ) : (
               <Button
                 type="link"
                 icon={<StarOutlined />}
-                onClick={() => handleStar(id, true)}
+                disabled={isStarLoading}
+                onClick={handleStar}
               >
                 收藏
               </Button>
@@ -107,7 +144,8 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
             <Button
               type="link"
               icon={<CopyOutlined />}
-              onClick={() => handleCopy(id)}
+              disabled={copyLoading}
+              onClick={handleCopy}
             >
               复制
             </Button>
@@ -115,9 +153,14 @@ const QuestionCard: FC<QuestionCardProps> = (props) => {
               title="Delete"
               description="Are you sure to delete this questionnaire?"
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-              onConfirm={() => handleDelete(id)}
+              onConfirm={handleDelete}
             >
-              <Button type="link" icon={<DeleteOutlined />} danger>
+              <Button
+                type="link"
+                disabled={isDeletedLoading}
+                icon={<DeleteOutlined />}
+                danger
+              >
                 删除
               </Button>
             </Popconfirm>

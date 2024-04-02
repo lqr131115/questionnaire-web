@@ -10,12 +10,6 @@ import QNListPagination from "../../components/QNListPagination";
 
 const List: FC = () => {
   useTitle("我的收藏");
-  function doCopy(id: string) {
-    alert(`复制问卷${id}`);
-  }
-  function doDelete(id: string) {
-    alert(`删除问卷${id}`);
-  }
   const { loading, data: resData } = useQNList({ isStar: true });
   const { data: questionList, total } = (resData || {}) as any;
 
@@ -28,12 +22,7 @@ const List: FC = () => {
           {questionList?.length > 0 && (
             <>
               {questionList.map((item: Questionnaire) => (
-                <QuestionCard
-                  key={item.id}
-                  {...item}
-                  copy={doCopy}
-                  del={doDelete}
-                />
+                <QuestionCard key={item.id} {...item} />
               ))}
               <Flex justify="end">
                 <QNListPagination total={total} />
