@@ -7,6 +7,7 @@ import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
 import QuestionHeader from "../../components/QuestionHeader";
 import { useQNList } from "../../hooks";
+import QNListPagination from "../../components/QNListPagination";
 
 const columns: TableColumnsType<Questionnaire> = [
   {
@@ -76,18 +77,23 @@ const Trash: FC = () => {
             </Button>
           </Popconfirm>
         </Flex>
-        <h1>{total}</h1>
         <Spin spinning={loading} size="large">
           {questionList?.length === 0 && <Empty />}
           {questionList?.length > 0 && (
-            <Table
-              rowKey="id"
-              rowSelection={{
-                ...rowSelection,
-              }}
-              columns={columns}
-              dataSource={questionList}
-            />
+            <>
+              <Table
+                rowKey="id"
+                pagination={false}
+                rowSelection={{
+                  ...rowSelection,
+                }}
+                columns={columns}
+                dataSource={questionList}
+              />
+              <Flex justify="end" style={{ marginTop: 10 }}>
+                <QNListPagination total={total} />
+              </Flex>
+            </>
           )}
         </Spin>
       </div>
