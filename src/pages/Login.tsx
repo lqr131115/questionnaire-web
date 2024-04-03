@@ -3,8 +3,10 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useRequest, useTitle } from "ahooks";
-import { login } from "../api";
 import styles from "./Login.module.scss";
+import { login } from "../api";
+import { setItem } from "../utils/storage";
+import { TOKEN_KEY } from "../constants/enum";
 type FieldType = {
   username?: string;
   password?: string;
@@ -24,9 +26,9 @@ const Login: FC = () => {
       manual: true,
       onSuccess(res: any) {
         const { token } = res.data;
-        console.log("存储Token", token);
         navigate("/manage/list");
         message.success("登录成功");
+        setItem(TOKEN_KEY, token);
       },
     },
   );

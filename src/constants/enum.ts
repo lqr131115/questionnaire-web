@@ -1,5 +1,5 @@
 /**
- * @description: Request result set
+ * @description: Request
  */
 export enum ResultEnum {
   SUCCESS = 200,
@@ -29,3 +29,12 @@ export enum ContentTypeEnum {
   // form-data  upload
   FORM_DATA = "multipart/form-data;charset=UTF-8",
 }
+
+/**
+ * @description: storage
+ */
+// namespace
+export const STORAGE_NAMESPACE = "questionnaire__";
+
+// token
+export const TOKEN_KEY = "TOKEN__";

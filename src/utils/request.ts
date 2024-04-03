@@ -1,11 +1,15 @@
 import { message, notification } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
-import { RequestEnum, ResultEnum } from "../constants/enum";
+import { RequestEnum, ResultEnum, TOKEN_KEY } from "../constants/enum";
 import { baseURLConfig } from "../constants/config";
+import { getItem } from "./storage";
 
 const service = axios.create({
   baseURL: baseURLConfig.baseUrl,
   timeout: 3000,
+  headers: {
+    Authorization: getItem(TOKEN_KEY),
+  },
 });
 
 service.interceptors.request.use(
@@ -23,11 +27,13 @@ service.interceptors.response.use(
     if (code === ResultEnum.SUCCESS) {
       return res.data;
     } else {
+      // TODO: token 无感刷新
       message.error(msg);
       return Promise.reject(new Error(msg));
     }
   },
   (err) => {
+    // 服务器异常
     notification.error(err.message);
     return Promise.reject(new Error(err.message));
   },
