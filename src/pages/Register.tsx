@@ -3,8 +3,8 @@ import { Button, Form, Input, message } from "antd";
 import { useRequest, useTitle } from "ahooks";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api";
+import { LOGIN_PATH } from "../router";
 import styles from "./Register.module.scss";
-
 const Register: FC = () => {
   useTitle("注册");
   const [form] = Form.useForm();
@@ -17,7 +17,7 @@ const Register: FC = () => {
     {
       manual: true,
       onSuccess() {
-        navigator("/login");
+        navigator(LOGIN_PATH);
         message.success("注册成功");
       },
     },
@@ -88,7 +88,7 @@ const Register: FC = () => {
           </Form.Item>
           <Form.Item>
             <span>
-              I have a account, <Link to="/login">login now!</Link>
+              I have a account, <Link to={LOGIN_PATH}>login now!</Link>
             </span>
           </Form.Item>
           <Form.Item>

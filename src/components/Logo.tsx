@@ -1,13 +1,22 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Space, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { ThunderboltOutlined } from "@ant-design/icons";
+import { useUserInfo } from "../hooks";
+import { HOME_PATH, MANAGE_LIST_PATH } from "../router";
 import styles from "./Logo.module.scss";
 const { Title } = Typography;
 const Logo: FC = () => {
+  const { username } = useUserInfo();
+  const [pathname, setPathname] = useState(HOME_PATH);
+  useEffect(() => {
+    if (username) {
+      setPathname(MANAGE_LIST_PATH);
+    }
+  }, [username]);
   return (
     <>
-      <Link to="/">
+      <Link to={pathname}>
         <Space className={styles.logo}>
           <Title level={1}>
             <ThunderboltOutlined />

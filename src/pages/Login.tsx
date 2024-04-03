@@ -9,6 +9,7 @@ import { setItem } from "../utils/storage";
 import { TOKEN_KEY } from "../constants/enum";
 import { useAppDispatch } from "../store/hooks";
 import { setToken, setUserInfo } from "../store/counter/user";
+import { REGISTER_PATH, MANAGE_LIST_PATH } from "../router";
 type FieldType = {
   username?: string;
   password?: string;
@@ -29,7 +30,7 @@ const Login: FC = () => {
       manual: true,
       onSuccess(res: any) {
         const { token, username, nickname, avatar } = res.data;
-        navigate("/manage/list");
+        navigate(MANAGE_LIST_PATH);
         dispatch(setToken(token));
         dispatch(setUserInfo({ username, nickname, avatar }));
         message.success("登录成功");
@@ -86,7 +87,7 @@ const Login: FC = () => {
             </Button>
             <div>
               Or&nbsp;
-              <Link to="/register">register now!</Link>
+              <Link to={REGISTER_PATH}>register now!</Link>
             </div>
           </Form.Item>
         </Form>

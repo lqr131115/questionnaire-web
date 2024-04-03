@@ -14,8 +14,8 @@ interface UserState {
 const initialState: UserState = {
   token: "Bearer admin",
   info: {
-    username: "admin",
-    nickname: "管理员",
+    username: "",
+    nickname: "",
   },
 };
 
@@ -29,9 +29,12 @@ export const userSlice = createSlice({
     setUserInfo: (state: UserState, action: PayloadAction<UserInfo>) => {
       state.info = action.payload;
     },
+    logout: (state: UserState) => {
+      state.info = initialState.info;
+    },
   },
 });
 
-export const { setToken, setUserInfo } = userSlice.actions;
+export const { setToken, setUserInfo, logout } = userSlice.actions;
 
 export default userSlice.reducer;

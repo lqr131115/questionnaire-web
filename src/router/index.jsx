@@ -13,6 +13,11 @@ import Trash from "../pages/manage/Trash";
 import Edit from "../pages/question/Edit";
 import Stat from "../pages/question/Stat";
 
+export const HOME_PATH = "/";
+export const LOGIN_PATH = "/login";
+export const REGISTER_PATH = "/register";
+export const MANAGE_LIST_PATH = "/manage/list";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +27,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-
       {
         path: "manage",
         element: <ManageLayout />,
@@ -70,5 +74,4 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
 export default router;
