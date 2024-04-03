@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../index";
 
 type UserInfo = {
   username: string;
@@ -34,8 +33,5 @@ export const userSlice = createSlice({
 });
 
 export const { setToken, setUserInfo } = userSlice.actions;
-
-export const getToken = (state: RootState) => state.user.token;
-export const getUserInfo = (state: RootState) => state.user.info;
 
 export default userSlice.reducer;
