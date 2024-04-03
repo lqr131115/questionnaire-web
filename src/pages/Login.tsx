@@ -7,6 +7,8 @@ import styles from "./Login.module.scss";
 import { login } from "../api";
 import { setItem } from "../utils/storage";
 import { TOKEN_KEY } from "../constants/enum";
+import { useAppDispatch } from "../store/hooks";
+import { setToken } from "../store/counter/user";
 type FieldType = {
   username?: string;
   password?: string;
@@ -16,6 +18,8 @@ const Login: FC = () => {
   useTitle("登录");
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  // const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   const { loading, run: onFinish } = useRequest(
     async () => {
@@ -27,6 +31,7 @@ const Login: FC = () => {
       onSuccess(res: any) {
         const { token } = res.data;
         navigate("/manage/list");
+        dispatch(setToken(token));
         message.success("登录成功");
         setItem(TOKEN_KEY, token);
       },
