@@ -29,7 +29,7 @@ const Login: FC = () => {
     {
       manual: true,
       onSuccess(res: any) {
-        const { token, username, nickname, avatar } = res.data;
+        const { token, username, nickname, avatar } = res?.data || {};
         navigate(MANAGE_LIST_PATH);
         dispatch(setToken(token));
         dispatch(setUserInfo({ username, nickname, avatar }));

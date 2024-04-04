@@ -6,13 +6,13 @@ import styles from "./UserInfo.module.scss";
 import { LOGIN_PATH } from "../router";
 import { removeItem } from "../utils/storage";
 import { TOKEN_KEY } from "../constants/enum";
-import { useUserInfo } from "../hooks";
+import { useGetUserInfo } from "../hooks";
 import { useAppDispatch } from "../store/hooks";
 import { logout as logoutReducer } from "../store/counter/user";
 const UserInfo: FC = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { avatar } = useUserInfo();
+  const { avatar } = useGetUserInfo();
   const dispatch = useAppDispatch();
 
   const logout = () => {
