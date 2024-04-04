@@ -16,7 +16,7 @@ export const useUserInfo = () => {
       dispatch(setUserInfo({ username, nickname }));
     },
     onFinally() {
-      setLoading(true);
+      setLoading(false);
     },
   });
   useEffect(() => {

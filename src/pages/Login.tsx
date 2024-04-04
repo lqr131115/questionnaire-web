@@ -9,7 +9,7 @@ import { setItem } from "../utils/storage";
 import { TOKEN_KEY } from "../constants/enum";
 import { useAppDispatch } from "../store/hooks";
 import { setToken, setUserInfo } from "../store/counter/user";
-import { REGISTER_PATH, MANAGE_LIST_PATH } from "../router";
+import { REGISTER_PATH, HOME_PATH } from "../router";
 type FieldType = {
   username?: string;
   password?: string;
@@ -30,7 +30,7 @@ const Login: FC = () => {
       manual: true,
       onSuccess(res: any) {
         const { token, username, nickname, avatar } = res?.data || {};
-        navigate(MANAGE_LIST_PATH);
+        navigate(HOME_PATH);
         dispatch(setToken(token));
         dispatch(setUserInfo({ username, nickname, avatar }));
         message.success("登录成功");
