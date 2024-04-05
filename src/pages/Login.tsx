@@ -17,7 +17,6 @@ const Login: FC = () => {
   useTitle("登录");
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
   const { loading, run: onFinish } = useRequest(
     async () => {
       const { username, password } = form.getFieldsValue();
@@ -33,7 +32,6 @@ const Login: FC = () => {
       },
     },
   );
-
   return (
     <>
       <div className={styles.login}>

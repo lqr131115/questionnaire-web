@@ -27,23 +27,29 @@ const UserInfo: FC = () => {
   };
   return (
     <>
-      <Popover
-        content={
-          <Button type="link" onClick={logout}>
-            退出
-          </Button>
-        }
-        trigger="click"
-        open={open}
-        onOpenChange={handleOpenChange}
-      >
-        <span style={{ marginRight: 20 }}>{username}</span>
-        <Avatar
-          className={styles.avatar}
-          src={avatar}
-          icon={<UserOutlined />}
-        />
-      </Popover>
+      {!username ? (
+        <Button type="link" size="large" onClick={() => navigate(LOGIN_PATH)}>
+          登录
+        </Button>
+      ) : (
+        <Popover
+          content={
+            <Button type="link" onClick={logout}>
+              退出
+            </Button>
+          }
+          trigger="click"
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <span style={{ marginRight: 20 }}>{username}</span>
+          <Avatar
+            className={styles.avatar}
+            src={avatar}
+            icon={<UserOutlined />}
+          />
+        </Popover>
+      )}
     </>
   );
 };

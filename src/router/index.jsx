@@ -17,6 +17,7 @@ export const HOME_PATH = "/";
 export const LOGIN_PATH = "/login";
 export const REGISTER_PATH = "/register";
 export const MANAGE_LIST_PATH = "/manage/list";
+export const whiteRoutes = [LOGIN_PATH, REGISTER_PATH];
 
 const router = createBrowserRouter([
   {

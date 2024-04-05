@@ -34,7 +34,7 @@ service.interceptors.response.use(
   },
   (err) => {
     // 服务器异常
-    notification.error(err.message);
+    notification.error(err);
     return Promise.reject(new Error(err.message));
   },
 );

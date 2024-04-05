@@ -22,9 +22,9 @@ export const useRequestUserInfo = () => {
   useEffect(() => {
     if (username) {
       setLoading(false);
-    } else {
-      run();
+      return;
     }
+    run();
   }, [username]);
   return { loading };
 };
