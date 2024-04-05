@@ -8,7 +8,6 @@ import { getUserInfo } from "../api";
 export const useUserInfo = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const { username } = useGetUserInfo();
   const { run } = useRequest(getUserInfo, {
     manual: true,
     onSuccess(res: any) {
@@ -19,12 +18,13 @@ export const useUserInfo = () => {
       setLoading(false);
     },
   });
+  const { username } = useGetUserInfo();
   useEffect(() => {
     if (username) {
       setLoading(false);
-      return;
+    } else {
+      run();
     }
-    run();
   }, [username]);
   return { loading };
 };

@@ -12,7 +12,7 @@ import { logout as logoutReducer } from "../store/counter/user";
 const UserInfo: FC = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { avatar } = useGetUserInfo();
+  const { avatar, username } = useGetUserInfo();
   const dispatch = useAppDispatch();
 
   const logout = () => {
@@ -37,6 +37,7 @@ const UserInfo: FC = () => {
         open={open}
         onOpenChange={handleOpenChange}
       >
+        <span style={{ marginRight: 20 }}>{username}</span>
         <Avatar
           className={styles.avatar}
           src={avatar}

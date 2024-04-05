@@ -4,11 +4,12 @@ import { Layout } from "antd";
 import styles from "./MainLayout.module.scss";
 import Logo from "../components/Logo";
 import UserInfo from "../components/UserInfo";
-import { useUserInfo } from "../hooks";
+import { useUserInfo, useAuthRoute } from "../hooks";
 const { Header, Footer, Content } = Layout;
 
 const MainLayout: FC = () => {
   const { loading } = useUserInfo();
+  useAuthRoute(loading);
   return (
     <Layout>
       <Header className={styles.header}>
