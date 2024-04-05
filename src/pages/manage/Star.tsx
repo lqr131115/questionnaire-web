@@ -5,12 +5,12 @@ import type { Questionnaire } from "./manage";
 import styles from "./Star.module.scss";
 import QuestionCard from "../../components/QuestionCard";
 import QuestionHeader from "../../components/QuestionHeader";
-import { useQNList } from "../../hooks";
+import { useRequestQNList } from "../../hooks";
 import QNListPagination from "../../components/QNListPagination";
 
 const List: FC = () => {
   useTitle("我的收藏");
-  const { loading, data: resData } = useQNList({ isStar: true });
+  const { loading, data: resData } = useRequestQNList({ isStar: true });
   const { data: questionList, total } = (resData || {}) as any;
 
   return (

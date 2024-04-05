@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import { Spin } from "antd";
-import { useQNDetail } from "../../../hooks";
+import { useRequestQNDetail } from "../../../hooks";
 const Stat: FC = () => {
   useTitle("问卷统计");
-  const { loading, data: detail } = useQNDetail();
+  const { loading, data: detail } = useRequestQNDetail();
   return (
     <>
       <h3>问卷统计</h3>

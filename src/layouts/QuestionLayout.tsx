@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuthRoute, useUserInfo } from "../hooks";
+import { useAuthRoute, useRequestUserInfo } from "../hooks";
 const QuestionLayout: FC = () => {
-  const { loading } = useUserInfo();
+  const { loading } = useRequestUserInfo();
   useAuthRoute(loading);
   return (
     <>

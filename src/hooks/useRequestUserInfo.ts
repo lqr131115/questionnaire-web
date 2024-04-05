@@ -5,7 +5,7 @@ import { useGetUserInfo } from "./useGetUserInfo";
 import { setUserInfo } from "../store/counter/user";
 import { getUserInfo } from "../api";
 
-export const useUserInfo = () => {
+export const useRequestUserInfo = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const { run } = useRequest(getUserInfo, {

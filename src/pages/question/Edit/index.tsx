@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import { Spin } from "antd";
-import { useQNDetail } from "../../../hooks";
+import { useRequestQNDetail } from "../../../hooks";
 const Edit: FC = () => {
   useTitle("问卷编辑");
-  const { loading, data: detail } = useQNDetail();
+  const { loading, data: detail } = useRequestQNDetail();
   return (
     <>
       <h3>问卷编辑</h3>

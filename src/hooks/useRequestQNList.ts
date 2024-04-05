@@ -12,7 +12,7 @@ type OptionType = {
   isStar: boolean;
   isDeleted: number;
 };
-export const useQNList = (options: Partial<OptionType> = {}) => {
+export const useRequestQNList = (options: Partial<OptionType> = {}) => {
   const { isStar, isDeleted = 0 } = options;
   const [searchParams] = useSearchParams();
   async function _getQNList() {

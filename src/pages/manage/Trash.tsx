@@ -6,7 +6,7 @@ import type { TableColumnsType } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
 import { deleteQN, batchDeleteQN } from "../../api";
-import { useQNList } from "../../hooks";
+import { useRequestQNList } from "../../hooks";
 import QuestionHeader from "../../components/QuestionHeader";
 import QNListPagination from "../../components/QNListPagination";
 
@@ -50,7 +50,11 @@ const Trash: FC = () => {
     },
   };
 
-  const { loading, data: resData, refresh } = useQNList({ isDeleted: 1 });
+  const {
+    loading,
+    data: resData,
+    refresh,
+  } = useRequestQNList({ isDeleted: 1 });
   const { data: questionList, total } = (resData || {}) as any;
 
   const { loading: recoverLoading, run: handleRecover } = useRequest(
