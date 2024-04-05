@@ -12,6 +12,7 @@ import Star from "../pages/manage/Star";
 import Trash from "../pages/manage/Trash";
 import Edit from "../pages/question/Edit";
 import Stat from "../pages/question/Stat";
+import AuthRoute from "./AuthRoute";
 
 export const HOME_PATH = "/";
 export const LOGIN_PATH = "/login";
@@ -22,7 +23,11 @@ export const whiteRoutes = [LOGIN_PATH, REGISTER_PATH];
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <AuthRoute>
+        <MainLayout />
+      </AuthRoute>
+    ),
     children: [
       {
         path: "/",
@@ -54,15 +59,27 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <Login />,
+    element: (
+      <AuthRoute>
+        <Login />
+      </AuthRoute>
+    ),
   },
   {
     path: "register",
-    element: <Register />,
+    element: (
+      <AuthRoute>
+        <Register />
+      </AuthRoute>
+    ),
   },
   {
     path: "question",
-    element: <QuestionLayout />,
+    element: (
+      <AuthRoute>
+        <QuestionLayout />
+      </AuthRoute>
+    ),
     children: [
       {
         path: "edit/:id",

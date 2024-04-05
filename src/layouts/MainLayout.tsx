@@ -9,7 +9,6 @@ const { Header, Footer, Content } = Layout;
 
 const MainLayout: FC = () => {
   const { loading } = useRequestUserInfo();
-  // useAuthRoute(loading);
   return (
     <Layout>
       <Header className={styles.header}>

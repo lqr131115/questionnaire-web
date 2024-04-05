@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { useRequestUserInfo } from "../hooks";
 const QuestionLayout: FC = () => {
   useRequestUserInfo();
-  // useAuthRoute(loading);
   return (
     <>
       <Outlet />

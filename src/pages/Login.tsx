@@ -3,11 +3,13 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useRequest, useTitle } from "ahooks";
+import { useDispatch } from "react-redux";
 import styles from "./Login.module.scss";
 import { login } from "../api";
 import { setItem } from "../utils/storage";
 import { TOKEN_KEY } from "../constants/enum";
 import { REGISTER_PATH, HOME_PATH } from "../router";
+import { setUserInfo } from "../store/counter/user";
 type FieldType = {
   username?: string;
   password?: string;
@@ -16,6 +18,7 @@ type FieldType = {
 const Login: FC = () => {
   useTitle("登录");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { loading, run: onFinish } = useRequest(
     async () => {
@@ -25,8 +28,9 @@ const Login: FC = () => {
     {
       manual: true,
       onSuccess(res: any) {
-        const { token } = res?.data || {};
+        const { token, username, nickname } = res?.data || {};
         setItem(TOKEN_KEY, token);
+        dispatch(setUserInfo({ username, nickname }));
         navigate(HOME_PATH);
         message.success("登录成功");
       },
