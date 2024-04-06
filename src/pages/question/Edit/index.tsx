@@ -1,17 +1,21 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
-import { Spin } from "antd";
+import styles from "./index.module.scss";
 import { useRequestQNDetail } from "../../../hooks";
 const Edit: FC = () => {
   useTitle("问卷编辑");
-  const { loading, data: detail } = useRequestQNDetail();
+  const { data: detail } = useRequestQNDetail();
   return (
-    <>
-      <h3>问卷编辑</h3>
-      <Spin spinning={loading} size="large">
-        <div>{detail && (detail as any).title}</div>
-      </Spin>
-    </>
+    <div className={styles.container}>
+      <div className={styles.header}>header</div>
+      <div className={styles.content}>
+        <div className={styles.left}>left</div>
+        <div className={styles.main}>
+          <div className={styles.canvas}>{detail && (detail as any).title}</div>
+        </div>
+        <div className={styles.right}>right</div>
+      </div>
+    </div>
   );
 };
 

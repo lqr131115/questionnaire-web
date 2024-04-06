@@ -1,12 +1,19 @@
 import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
+import { Flex, Spin } from "antd";
 import { useRequestUserInfo } from "../hooks";
 const QuestionLayout: FC = () => {
-  useRequestUserInfo();
+  const { loading } = useRequestUserInfo();
   return (
-    <>
-      <Outlet />
-    </>
+    <div style={{ height: "100vh" }}>
+      {loading ? (
+        <Flex justify="center" style={{ marginTop: 60 }}>
+          <Spin size="large" />
+        </Flex>
+      ) : (
+        <Outlet />
+      )}
+    </div>
   );
 };
 
