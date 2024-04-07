@@ -1,11 +1,14 @@
 import component from "./component";
 import { QNTitleDefaultProps } from "./interface";
+import { IQNComponent } from "..";
 
 export * from "./interface";
 
-export default {
+const QNTitleMaterial: IQNComponent = {
   title: "Title",
   type: "qnTitle",
   component,
   props: QNTitleDefaultProps,
 };
+
+export default QNTitleMaterial;

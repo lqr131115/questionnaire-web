@@ -4,16 +4,16 @@ import {
   QNComponentProps,
 } from "../../components/QNComponents";
 
-interface IQNComponent {
+type QNComponent = {
   qn_id: string;
   title: string;
   type: QNComponentType;
   props: QNComponentProps;
   [key: string]: any;
-}
+};
 
 type QNComponentState = {
-  list: IQNComponent[];
+  list: QNComponent[];
 };
 
 const initialState: QNComponentState = {
@@ -27,7 +27,7 @@ export const qncSlice = createSlice({
   reducers: {
     setQncList: (
       state: QNComponentState,
-      action: PayloadAction<IQNComponent[]>,
+      action: PayloadAction<QNComponent[]>,
     ) => {
       state.list = action.payload;
     },
