@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Spin } from "antd";
 import classNames from "classnames";
+import { useKeyPress } from "ahooks";
 import styles from "./canvasbody.module.scss";
 import { useGetQncList } from "../../../hooks/useGetQncList";
 import { getMaterialByType } from "../../../components/QNComponents";
@@ -19,7 +20,26 @@ const CanvasBody: FC<CanvasBodyProps> = (props) => {
     event.stopPropagation();
     dispatch(setQncActiveId(id));
   };
-
+  useKeyPress(["uparrow"], () => {
+    const idx = componentList.findIndex((m) => m.qn_id === activeId);
+    if (~idx) {
+      if (idx === 0) {
+        return;
+      }
+      const nextId = componentList[idx - 1].qn_id;
+      dispatch(setQncActiveId(nextId));
+    }
+  });
+  useKeyPress(["downarrow"], () => {
+    const idx = componentList.findIndex((m) => m.qn_id === activeId);
+    if (~idx) {
+      if (idx === componentList.length - 1) {
+        return;
+      }
+      const nextId = componentList[idx + 1].qn_id;
+      dispatch(setQncActiveId(nextId));
+    }
+  });
   return (
     <Spin spinning={loading} style={{ marginTop: 20 }}>
       <div className={styles.container}>
