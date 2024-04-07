@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import styles from "./index.module.scss";
 // import { useRequestQNDetail } from "../../../hooks";
-import { QNTitle, QNInput } from "../../../components/QNComponents/index";
+import CanvasBody from "./CanvasBody";
 const Edit: FC = () => {
   useTitle("问卷编辑");
   // const { data: detail } = useRequestQNDetail();
@@ -14,8 +14,7 @@ const Edit: FC = () => {
         <div className={styles.main}>
           <div className={styles.canvas}>
             {/* {detail && (detail as any).title} */}
-            <QNTitle text="你好" level={2} align="end" />
-            <QNInput title="你好" placeholder="请输入" />
+            <CanvasBody />
           </div>
         </div>
         <div className={styles.right}>right</div>
