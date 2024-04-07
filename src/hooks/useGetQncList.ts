@@ -1,5 +1,6 @@
 import { useAppSelector } from "../store/hooks";
 
 export const useGetQncList = () => {
-  return useAppSelector((state) => state.qnc.list);
+  const { list, activeId } = useAppSelector((state) => state.qnc);
+  return { list, activeId };
 };

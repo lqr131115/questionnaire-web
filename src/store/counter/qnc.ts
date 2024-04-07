@@ -1,4 +1,6 @@
+import { produce } from "immer";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import {
   QNComponentType,
   QNComponentProps,
@@ -13,10 +15,12 @@ type QNComponent = {
 };
 
 type QNComponentState = {
+  activeId: string;
   list: QNComponent[];
 };
 
 const initialState: QNComponentState = {
+  activeId: "",
   list: [],
 };
 
@@ -25,15 +29,23 @@ export const qncSlice = createSlice({
   name: "qnc",
   initialState,
   reducers: {
-    setQncList: (
-      state: QNComponentState,
-      action: PayloadAction<QNComponent[]>,
-    ) => {
-      state.list = action.payload;
-    },
+    setQncList: produce(
+      (draft: QNComponentState, action: PayloadAction<QNComponent[]>) => {
+        draft.list = action.payload;
+      },
+    ),
+    setQncActiveId: produce(
+      (draft: QNComponentState, action: PayloadAction<string>) => {
+        draft.activeId = action.payload;
+      },
+    ),
+    resetQnc: produce((draft: QNComponentState) => {
+      draft.activeId = "";
+      draft.list = [];
+    }),
   },
 });
 
-export const { setQncList } = qncSlice.actions;
+export const { setQncList, setQncActiveId, resetQnc } = qncSlice.actions;
 
 export default qncSlice.reducer;

@@ -3,7 +3,7 @@ import { useRequest } from "ahooks";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getQNDetail } from "../api";
-import { setQncList } from "../store/counter/qnc";
+import { setQncList, setQncActiveId } from "../store/counter/qnc";
 export const useRequestQNDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ export const useRequestQNDetail = () => {
     if (!data) return;
     const { componentList = [] } = data;
     dispatch(setQncList(componentList));
+    if (componentList.length) {
+      dispatch(setQncActiveId(componentList[0]?.qn_id ?? ""));
+    }
   }, [data]);
 
   useEffect(() => {

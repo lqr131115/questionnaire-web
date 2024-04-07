@@ -1,18 +1,24 @@
 .container {
   $activeColor: #1890ff;
+  $hoverColor: #f1f1f1;
   min-height: 100%;
   overflow: hidden;
 
   .wrapper {
-    margin: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid transparent;
     &:hover {
-      border-color: $activeColor;
+      border-color: $hoverColor;
       cursor: pointer;
     }
 
     .disabled {
       pointer-events: none;
     }
+  }
+
+  .active {
+    border-color: $activeColor !important;
   }
 }
