@@ -10,6 +10,7 @@ export interface IQNComponent {
   type: QNComponentType;
   component: React.FC<QNComponentProps>;
   props: QNComponentProps;
+  icon?: string;
   [key: string]: any;
 }
 
