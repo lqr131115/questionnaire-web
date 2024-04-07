@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./counter/user";
+import qncReducer from "./counter/qnc";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    qnc: qncReducer,
   },
 });
 

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { QNTitle, QNInput } from "../../../components/QNComponents/index";
 import styles from "./canvasbody.module.scss";
-
+import QNTitle from "../../../components/QNComponents/QNTitle/component";
+import QNInput from "../../../components/QNComponents/QNInput/component";
 const CanvasBody: FC = () => {
   return (
     <div className={styles.container}>
