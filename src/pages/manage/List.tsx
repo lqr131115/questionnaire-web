@@ -4,13 +4,13 @@ import { useDebounceFn, useTitle } from "ahooks";
 import { Empty, Flex, Spin, Typography, message } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
-import QuestionCard from "../../components/QuestionCard";
-import QuestionHeader from "../../components/QuestionHeader";
-import { getQNList } from "../../api";
+import QuestionCard from "@/components/QuestionCard";
+import QuestionHeader from "@/components/QuestionHeader";
+import { getQNList } from "@/api";
 import {
   SEARCH_LIST_DEFAULT_PAGESIZE,
   SEARCH_LIST_KEYWORD_KEY,
-} from "../../constants";
+} from "@/constants";
 const { Text } = Typography;
 
 const List: FC = () => {

@@ -1,10 +1,7 @@
 import { produce } from "immer";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import {
-  QNComponentType,
-  QNComponentProps,
-} from "../../components/QNComponents";
+import { QNComponentType, QNComponentProps } from "@/components/QNComponents";
 
 type QNComponent = {
   qn_id: string;

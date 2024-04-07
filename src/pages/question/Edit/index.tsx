@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import Icon from "@ant-design/icons";
 import CanvasBody from "./CanvasBody";
-import { useRequestQNDetail } from "../../../hooks";
-import { useAppDispatch } from "../../../store/hooks";
-import { setQncActiveId } from "../../../store/counter/qnc";
+import { useRequestQNDetail } from "@/hooks";
+import { useAppDispatch } from "@/store/hooks";
+import { setQncActiveId } from "@/store/counter/qnc";
+// import QNTitleSvg from "@/icons/svg/title.svg";
+import { ReactComponent as QNTitleSvg } from "@/assets/svg/title.svg";
 import styles from "./index.module.scss";
-// import QNTitleSvg from "../../../icons/svg/title.svg";
-import { ReactComponent as QNTitleSvg } from "../../../icons/svg/title.svg";
 const Edit: FC = () => {
   useTitle("问卷编辑");
   const { loading } = useRequestQNDetail();

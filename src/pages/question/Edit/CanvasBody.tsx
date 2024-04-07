@@ -3,10 +3,10 @@ import { Spin } from "antd";
 import classNames from "classnames";
 import { useKeyPress } from "ahooks";
 import styles from "./canvasbody.module.scss";
-import { useGetQncList } from "../../../hooks/useGetQncList";
-import { getMaterialByType } from "../../../components/QNComponents";
-import { useAppDispatch } from "../../../store/hooks";
-import { setQncActiveId } from "../../../store/counter/qnc";
+import { useGetQncList } from "@/hooks/useGetQncList";
+import { getMaterialByType } from "@/components/QNComponents";
+import { useAppDispatch } from "@/store/hooks";
+import { setQncActiveId } from "@/store/counter/qnc";
 
 type CanvasBodyProps = {
   loading: boolean;

@@ -5,10 +5,10 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./List.module.scss";
-import { deleteQN, batchDeleteQN } from "../../api";
-import { useRequestQNList } from "../../hooks";
-import QuestionHeader from "../../components/QuestionHeader";
-import QNListPagination from "../../components/QNListPagination";
+import { deleteQN, batchDeleteQN } from "@/api";
+import { useRequestQNList } from "@/hooks";
+import QuestionHeader from "@/components/QuestionHeader";
+import QNListPagination from "@/components/QNListPagination";
 
 const columns: TableColumnsType<Questionnaire> = [
   {

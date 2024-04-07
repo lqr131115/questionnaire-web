@@ -3,10 +3,10 @@ import { useTitle } from "ahooks";
 import { Empty, Spin, Flex } from "antd";
 import type { Questionnaire } from "./manage";
 import styles from "./Star.module.scss";
-import QuestionCard from "../../components/QuestionCard";
-import QuestionHeader from "../../components/QuestionHeader";
-import { useRequestQNList } from "../../hooks";
-import QNListPagination from "../../components/QNListPagination";
+import QuestionCard from "@/components/QuestionCard";
+import QuestionHeader from "@/components/QuestionHeader";
+import { useRequestQNList } from "@/hooks";
+import QNListPagination from "@/components/QNListPagination";
 
 const List: FC = () => {
   useTitle("我的收藏");

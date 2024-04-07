@@ -1,3 +1,7 @@
+import path from "path";
+
+const pathResolve = (pathUrl: string) => path.join(__dirname, pathUrl);
+
 export default {
   devServer: {
     proxy: {
@@ -5,6 +9,9 @@ export default {
     },
   },
   webpack: {
+    alias: {
+      "@": pathResolve("src"),
+    },
     module: {
       rules: [
         {
