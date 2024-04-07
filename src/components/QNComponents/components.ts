@@ -1,4 +1,4 @@
-import QNTitle from "./QNTitle";
-import QNInput from "./QNInput";
+import QNTitle from "./QNTitle/component";
+import QNInput from "./QNInput/component";
 
 export { QNTitle, QNInput };
