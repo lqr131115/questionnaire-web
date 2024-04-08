@@ -7,6 +7,8 @@ import { setQncActiveId } from "@/store/counter/qnc";
 import styles from "./index.module.scss";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
+import EditHeader from "./EditHeader";
+
 const Edit: FC = () => {
   useTitle("问卷编辑");
   const { loading } = useRequestQNDetail();
@@ -17,7 +19,9 @@ const Edit: FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>header</div>
+      <div className={styles.header}>
+        <EditHeader />
+      </div>
       <div className={styles.content}>
         <div className={styles.left}>
           <LeftPanel />
