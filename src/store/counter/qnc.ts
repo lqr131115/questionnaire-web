@@ -43,9 +43,7 @@ export const qncSlice = createSlice({
         const { list, activeId } = draft;
         const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
         if (~curActiveIdx) {
-          const tempList = [...list];
-          tempList.splice(curActiveIdx + 1, 0, newComponent);
-          draft.list = tempList;
+          draft.list.splice(curActiveIdx + 1, 0, newComponent);
         } else {
           draft.list.push(newComponent);
         }
