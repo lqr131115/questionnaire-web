@@ -19,7 +19,7 @@ export const qncMaterialGroup = [
   {
     groupId: "text",
     groupName: "文本",
-    components: Array.from({ length: 1 }).map(() => QNTitleMaterial),
+    components: [QNTitleMaterial],
   },
   {
     groupId: "input",
