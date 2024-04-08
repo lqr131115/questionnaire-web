@@ -1,4 +1,6 @@
 import component from "./component";
+import propComponent from "./propComponent";
+
 import { QNTitleDefaultProps } from "./interface";
 import { IQNComponent } from "..";
 import { ReactComponent as TitleSvg } from "@/assets/svg/title.svg";
@@ -9,6 +11,7 @@ const QNTitleMaterial: IQNComponent = {
   type: "qnTitle",
   icon: TitleSvg,
   component,
+  propComponent,
   props: QNTitleDefaultProps,
 };
 

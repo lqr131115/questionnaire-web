@@ -31,7 +31,7 @@ const QNInputProp: FC<Partial<QNInputPropsType>> = (props) => {
       <Form.Item name="size" label="尺寸">
         <Radio.Group>
           <Radio value="large">大</Radio>
-          <Radio value="middle">中等</Radio>
+          <Radio value="middle">中</Radio>
           <Radio value="small">小</Radio>
         </Radio.Group>
       </Form.Item>

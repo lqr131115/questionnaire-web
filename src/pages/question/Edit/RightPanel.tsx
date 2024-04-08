@@ -1,27 +1,25 @@
 import React, { FC } from "react";
-import { AlignLeftOutlined, BgColorsOutlined } from "@ant-design/icons";
+import { AlignLeftOutlined, SettingOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
-import QNTitleProp from "@/components/QNComponents/QNTitle/prop";
-import QNInputProp from "@/components/QNComponents/QNInput/prop";
-
+import ComponentProp from "./ComponentProp";
 const tabItems: any[] = [
   {
-    key: "props",
+    key: "prop",
     label: "属性",
-    children: <QNTitleProp text="text" />,
+    children: <ComponentProp />,
     icon: <AlignLeftOutlined />,
   },
   {
-    key: "styles",
-    label: "样式",
-    children: <QNInputProp title="title" />,
-    icon: <BgColorsOutlined />,
+    key: "setting",
+    label: "设置",
+    children: "页面设置",
+    icon: <SettingOutlined />,
   },
 ];
 const RightPanel: FC = () => {
   return (
     <>
-      <Tabs defaultActiveKey="props" items={tabItems} />
+      <Tabs defaultActiveKey="prop" items={tabItems} />
     </>
   );
 };

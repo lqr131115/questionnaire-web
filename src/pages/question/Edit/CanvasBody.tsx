@@ -3,7 +3,7 @@ import { Spin } from "antd";
 import classNames from "classnames";
 import { useKeyPress } from "ahooks";
 import styles from "./canvasbody.module.scss";
-import { useGetQncList } from "@/hooks/useGetQncList";
+import { useGetQncInfo } from "@/hooks/useGetQncInfo";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useAppDispatch } from "@/store/hooks";
 import { setQncActiveId } from "@/store/counter/qnc";
@@ -14,7 +14,7 @@ type CanvasBodyProps = {
 
 const CanvasBody: FC<CanvasBodyProps> = (props) => {
   const { loading } = props;
-  const { list: componentList, activeId } = useGetQncList();
+  const { list: componentList, activeId } = useGetQncInfo();
   const dispatch = useAppDispatch();
   const handleClick = (event: MouseEvent, id: string) => {
     event.stopPropagation();
