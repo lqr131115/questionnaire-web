@@ -8,7 +8,8 @@ export type QNComponentType = "qnTitle" | "qnInput"; // 前后端一致
 export interface IQNComponent {
   title: string;
   type: QNComponentType;
-  component: React.FC<QNComponentProps>;
+  component: React.FC<QNComponentProps>; // 画布中显示的组件
+  propComponent: React.FC<QNComponentProps>; // 激活组件的属性面板
   props: QNComponentProps;
   [key: string]: any;
 }

@@ -3,26 +3,32 @@ import { Form, Input, Radio } from "antd";
 import { QNInputPropsType } from "./interface";
 
 const QNInputProp: FC<Partial<QNInputPropsType>> = (props) => {
-  const { title, placeholder, size } = props;
+  const { title, content, placeholder, size, onValuesChange } = props;
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
       title,
+      content,
       placeholder,
       size,
     });
-  }, [title, placeholder, size]);
+  }, [title, content, placeholder, size]);
+
   return (
     <Form
       layout="vertical"
       form={form}
-      initialValues={{ title, placeholder, size }}
+      onValuesChange={onValuesChange}
+      initialValues={{ title, content, placeholder, size }}
     >
       <Form.Item
         label="标题"
         name="title"
         rules={[{ required: true, message: "标题不能为空" }]}
       >
+        <Input />
+      </Form.Item>
+      <Form.Item label="内容" name="content">
         <Input />
       </Form.Item>
       <Form.Item label="提示" name="placeholder">

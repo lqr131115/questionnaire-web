@@ -54,10 +54,19 @@ export const qncSlice = createSlice({
       draft.activeId = "";
       draft.list = [];
     }),
+    changeActiveQnc: produce(
+      (draft: QNComponentState, action: PayloadAction<QNComponentProps>) => {
+        const { list, activeId } = draft;
+        const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
+        if (~curActiveIdx) {
+          draft.list[curActiveIdx].props = action.payload;
+        }
+      },
+    ),
   },
 });
 
-export const { setQncList, setQncActiveId, resetQnc, addQnc } =
+export const { setQncList, setQncActiveId, resetQnc, addQnc, changeActiveQnc } =
   qncSlice.actions;
 
 export default qncSlice.reducer;

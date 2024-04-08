@@ -3,7 +3,7 @@ import { Form, Input, Radio, Select } from "antd";
 import { QNTitlePropsType } from "./interface";
 
 const QNTitleProp: FC<Partial<QNTitlePropsType>> = (props) => {
-  const { text, level, align } = props;
+  const { text, level, align, onValuesChange } = props;
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
@@ -13,7 +13,12 @@ const QNTitleProp: FC<Partial<QNTitlePropsType>> = (props) => {
     });
   }, [text, level, align]);
   return (
-    <Form layout="vertical" form={form} initialValues={{ text, level, align }}>
+    <Form
+      layout="vertical"
+      form={form}
+      initialValues={{ text, level, align }}
+      onValuesChange={onValuesChange}
+    >
       <Form.Item
         label="标题"
         name="text"
@@ -23,11 +28,11 @@ const QNTitleProp: FC<Partial<QNTitlePropsType>> = (props) => {
       </Form.Item>
       <Form.Item label="等级" name="level">
         <Select>
-          <Select.Option value="1">H1</Select.Option>
-          <Select.Option value="2">H2</Select.Option>
-          <Select.Option value="3">H3</Select.Option>
-          <Select.Option value="4">H4</Select.Option>
-          <Select.Option value="5">H5</Select.Option>
+          <Select.Option value={1}>H1</Select.Option>
+          <Select.Option value={2}>H2</Select.Option>
+          <Select.Option value={3}>H3</Select.Option>
+          <Select.Option value={4}>H4</Select.Option>
+          <Select.Option value={5}>H5</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item name="align" label="对齐方式">

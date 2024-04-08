@@ -2,6 +2,8 @@ export type QNTitlePropsType = {
   text: string;
   level: 1 | 2 | 3 | 4 | 5;
   align: "start" | "center" | "end";
+
+  onValuesChange?: (changedValues: any, allValues: any) => void;
 };
 
 export const QNTitleDefaultProps: QNTitlePropsType = {
