@@ -1,14 +1,33 @@
 import React, { FC, useState } from "react";
+import { nanoid } from "nanoid";
 import { Typography, Row, Col, Flex } from "antd";
 import Icon from "@ant-design/icons/lib/components/Icon";
-import { qncMaterialGroup } from "@/components/QNComponents";
+import {
+  QNComponentType,
+  getMaterialByType,
+  qncMaterialGroup,
+} from "@/components/QNComponents";
 import styles from "./ComponentLib.module.scss";
+import { useAppDispatch } from "@/store/hooks";
+import { addQnc } from "@/store/counter/qnc";
 
 const { Title } = Typography;
 const borderStyle = "1px solid #f0f0f0";
-
 const ComponentLib: FC = () => {
   const [cols] = useState(3);
+  const dispatch = useAppDispatch();
+  const handleClick = (t: QNComponentType) => {
+    const existComponent = getMaterialByType(t);
+    if (!existComponent) return;
+    const { props, title, type } = existComponent;
+    const newComponent = {
+      props,
+      title,
+      type,
+      qn_id: nanoid(),
+    };
+    dispatch(addQnc(newComponent));
+  };
   return (
     <div className={styles.lib}>
       {qncMaterialGroup.map((group, index) => {
@@ -30,6 +49,7 @@ const ComponentLib: FC = () => {
                       borderTop: i < cols ? borderStyle : "none",
                       borderLeft: i % cols === 0 ? borderStyle : "none",
                     }}
+                    onClick={() => handleClick(type)}
                   >
                     <Flex justify="center" align="center">
                       {<Icon component={() => <IconSvg />} />}

@@ -5,7 +5,7 @@ export type QNTitlePropsType = {
 };
 
 export const QNTitleDefaultProps: QNTitlePropsType = {
-  text: "Title",
+  text: "标题",
   level: 1,
   align: "start",
 };

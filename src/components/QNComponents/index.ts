@@ -4,7 +4,7 @@ import QNInputMaterial, { QNInputPropsType } from "./QNInput";
 export type QNComponentProps = Partial<QNTitlePropsType & QNInputPropsType>;
 export type QNComponentType = "qnTitle" | "qnInput"; // 前后端一致
 
-// 单个物料协议
+// 单个物料协议 (前端定义的, 包括组件类型)
 export interface IQNComponent {
   title: string;
   type: QNComponentType;

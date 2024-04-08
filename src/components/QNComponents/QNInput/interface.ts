@@ -5,7 +5,7 @@ export type QNInputPropsType = {
 };
 
 export const QNInputDefaultProps: QNInputPropsType = {
-  title: "Input",
-  placeholder: "Please Input",
+  title: "单行输入",
+  placeholder: "请输入",
   size: "middle",
 };
