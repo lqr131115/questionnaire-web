@@ -1,13 +1,16 @@
 .lib {
+  $borderColor: #f0f0f0;
+  $hoverBgColor: #f0f0f0;
   max-height: calc(100vh - 130px);
   overflow: auto;
-  .card {
-    box-shadow: none;
-
-    .grid {
+  .row {
+    transition: all 0.2s;
+    .col {
       padding: 16px 0;
+      border: 1px solid $borderColor;
       &:hover {
         cursor: pointer;
+        background-color: $hoverBgColor;
       }
     }
     .title {
