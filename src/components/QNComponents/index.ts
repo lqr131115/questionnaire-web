@@ -10,7 +10,6 @@ export interface IQNComponent {
   type: QNComponentType;
   component: React.FC<QNComponentProps>;
   props: QNComponentProps;
-  icon?: string;
   [key: string]: any;
 }
 
@@ -20,7 +19,7 @@ export const qncMaterialGroup = [
   {
     groupId: "text",
     groupName: "文本",
-    components: [QNTitleMaterial],
+    components: Array.from({ length: 1 }).map(() => QNTitleMaterial),
   },
   {
     groupId: "input",

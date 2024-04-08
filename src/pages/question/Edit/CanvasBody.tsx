@@ -21,6 +21,9 @@ const CanvasBody: FC<CanvasBodyProps> = (props) => {
     dispatch(setQncActiveId(id));
   };
   useKeyPress(["uparrow"], () => {
+    if (!activeId) {
+      return;
+    }
     const idx = componentList.findIndex((m) => m.qn_id === activeId);
     if (~idx) {
       if (idx === 0) {
@@ -31,6 +34,9 @@ const CanvasBody: FC<CanvasBodyProps> = (props) => {
     }
   });
   useKeyPress(["downarrow"], () => {
+    if (!activeId) {
+      return;
+    }
     const idx = componentList.findIndex((m) => m.qn_id === activeId);
     if (~idx) {
       if (idx === componentList.length - 1) {

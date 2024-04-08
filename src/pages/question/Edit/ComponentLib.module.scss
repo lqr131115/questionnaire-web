@@ -1,0 +1,15 @@
+.lib {
+  .card {
+    box-shadow: none;
+
+    .grid {
+      padding: 16px 0;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .title {
+      font-weight: bolder;
+    }
+  }
+}
