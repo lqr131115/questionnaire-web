@@ -16,6 +16,19 @@ export interface IQNComponent {
 
 const qncMaterialList: IQNComponent[] = [QNTitleMaterial, QNInputMaterial];
 
+export const qncMaterialGroup = [
+  {
+    groupId: "text",
+    groupName: "文本",
+    components: [QNTitleMaterial],
+  },
+  {
+    groupId: "input",
+    groupName: "输入",
+    components: [QNInputMaterial],
+  },
+];
+
 export const getMaterialByType = (
   type: QNComponentType,
 ): IQNComponent | undefined => {

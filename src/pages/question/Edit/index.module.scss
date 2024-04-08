@@ -17,6 +17,7 @@
     background-color: #f0f2f5;
     .left {
       flex: 1;
+      padding: 0 10px;
       background-color: $bgColor;
     }
 
@@ -38,8 +39,8 @@
 
     .right {
       flex: 1;
+      padding: 0 10px;
       background-color: $bgColor;
-      width: 285px;
     }
   }
 }

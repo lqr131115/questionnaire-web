@@ -8,6 +8,7 @@ type QNComponent = {
   title: string;
   type: QNComponentType;
   props: QNComponentProps;
+  icon?: string;
   [key: string]: any;
 };
 
