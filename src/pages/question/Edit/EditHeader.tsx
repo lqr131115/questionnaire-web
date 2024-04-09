@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Typography, Tooltip } from "antd";
+import { Button, Typography, Tooltip, Space } from "antd";
 import {
   LeftOutlined,
   EditOutlined,
@@ -16,39 +16,44 @@ const EditHeader: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left}>
-        <Button
-          type="link"
-          icon={<LeftOutlined />}
-          onClick={() => navigator(-1)}
-        >
-          返回
-        </Button>
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: "bolder",
-            display: "inline-flex",
-          }}
-          editable={{
-            icon: <EditOutlined style={{ color: "black" }} />,
-            onChange: setEditableTitle,
-            text: editableTitle,
-          }}
-        >
-          {editableTitle}
-        </Text>
+        <Space>
+          <Button
+            type="link"
+            icon={<LeftOutlined />}
+            onClick={() => navigator(-1)}
+          >
+            返回
+          </Button>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bolder",
+            }}
+            editable={{
+              icon: <EditOutlined style={{ color: "black" }} />,
+              onChange: setEditableTitle,
+              text: editableTitle,
+            }}
+          >
+            {editableTitle}
+          </Text>
+        </Space>
       </div>
       <div className={styles.middle}>
-        <Tooltip title="删除">
-          <Button shape="circle" icon={<DeleteOutlined />} />
-        </Tooltip>
-        <Tooltip title="隐藏">
-          <Button shape="circle" icon={<EyeInvisibleOutlined />} />
-        </Tooltip>
+        <Space>
+          <Tooltip title="删除">
+            <Button shape="circle" icon={<DeleteOutlined />} />
+          </Tooltip>
+          <Tooltip title="隐藏">
+            <Button shape="circle" icon={<EyeInvisibleOutlined />} />
+          </Tooltip>
+        </Space>
       </div>
       <div className={styles.right}>
-        <Button style={{ marginRight: 15 }}>保存</Button>
-        <Button type="primary">发布</Button>
+        <Space>
+          <Button>保存</Button>
+          <Button type="primary">发布</Button>
+        </Space>
       </div>
     </div>
   );
