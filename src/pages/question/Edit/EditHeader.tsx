@@ -1,13 +1,9 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Typography, Tooltip, Space } from "antd";
-import {
-  LeftOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { Button, Typography, Space } from "antd";
+import { LeftOutlined, EditOutlined } from "@ant-design/icons";
 import styles from "./EditHeader.module.scss";
+import EditToolbar from "./EditToolbar";
 
 const { Text } = Typography;
 const EditHeader: FC = () => {
@@ -40,14 +36,7 @@ const EditHeader: FC = () => {
         </Space>
       </div>
       <div className={styles.middle}>
-        <Space>
-          <Tooltip title="删除">
-            <Button shape="circle" icon={<DeleteOutlined />} />
-          </Tooltip>
-          <Tooltip title="隐藏">
-            <Button shape="circle" icon={<EyeInvisibleOutlined />} />
-          </Tooltip>
-        </Space>
+        <EditToolbar />
       </div>
       <div className={styles.right}>
         <Space>
