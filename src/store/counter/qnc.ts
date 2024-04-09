@@ -10,6 +10,7 @@ export type QNComponent = {
   title: string;
   type: QNComponentType;
   props: QNComponentProps;
+  hidden?: boolean;
   [key: string]: any;
 };
 
@@ -76,6 +77,20 @@ export const qncSlice = createSlice({
         }
       },
     ),
+    changeQncHidden: produce(
+      (
+        draft: QNComponentState,
+        action: PayloadAction<{ qn_id: string; hidden: boolean }>,
+      ) => {
+        const { qn_id, hidden } = action.payload;
+        const curComponent = draft.list.find((c) => c.qn_id === qn_id);
+        if (curComponent) {
+          const nextActiveId = getNextActiveId(qn_id, draft.list);
+          curComponent.hidden = hidden;
+          draft.activeId = nextActiveId;
+        }
+      },
+    ),
   },
 });
 
@@ -86,6 +101,7 @@ export const {
   deleteActiveQnc,
   addQnc,
   changeQncProps,
+  changeQncHidden,
 } = qncSlice.actions;
 
 export default qncSlice.reducer;

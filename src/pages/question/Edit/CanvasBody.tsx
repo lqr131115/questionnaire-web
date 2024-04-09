@@ -49,26 +49,28 @@ const CanvasBody: FC<CanvasBodyProps> = (props) => {
   return (
     <Spin spinning={loading} style={{ marginTop: 20 }}>
       <div className={styles.container}>
-        {componentList.map((m) => {
-          const { qn_id } = m;
-          const wrapperCls = styles.wrapper,
-            activeCls = styles.active;
-          const containerCls = classNames({
-            [wrapperCls]: true,
-            [activeCls]: activeId === qn_id,
-          });
-          return (
-            <div
-              className={containerCls}
-              key={qn_id}
-              onClick={(event: any) => handleClick(event, qn_id)}
-            >
-              <div className={styles.disabled}>
-                {getMaterialByType(m.type)?.component(m.props)}
+        {componentList
+          .filter((c) => !c.hidden)
+          .map((m) => {
+            const { qn_id } = m;
+            const wrapperCls = styles.wrapper,
+              activeCls = styles.active;
+            const containerCls = classNames({
+              [wrapperCls]: true,
+              [activeCls]: activeId === qn_id,
+            });
+            return (
+              <div
+                className={containerCls}
+                key={qn_id}
+                onClick={(event: any) => handleClick(event, qn_id)}
+              >
+                <div className={styles.disabled}>
+                  {getMaterialByType(m.type)?.component(m.props)}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </Spin>
   );
