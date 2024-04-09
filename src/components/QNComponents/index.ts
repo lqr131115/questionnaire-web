@@ -1,8 +1,11 @@
 import QNTitleMaterial, { QNTitlePropsType } from "./QNTitle";
 import QNInputMaterial, { QNInputPropsType } from "./QNInput";
+import QNParagraphMaterial, { QNParagraphPropsType } from "./QNParagraph";
 
-export type QNComponentProps = Partial<QNTitlePropsType & QNInputPropsType>;
-export type QNComponentType = "qnTitle" | "qnInput"; // 前后端一致
+export type QNComponentProps = Partial<
+  QNTitlePropsType & QNInputPropsType & QNParagraphPropsType
+>;
+export type QNComponentType = "qnTitle" | "qnInput" | "qnParagraph"; // 前后端一致
 
 // 单个物料协议 (前端定义的, 包括组件类型)
 export interface IQNComponent {
@@ -14,13 +17,17 @@ export interface IQNComponent {
   [key: string]: any;
 }
 
-const qncMaterialList: IQNComponent[] = [QNTitleMaterial, QNInputMaterial];
+const qncMaterialList: IQNComponent[] = [
+  QNTitleMaterial,
+  QNInputMaterial,
+  QNParagraphMaterial,
+];
 
 export const qncMaterialGroup = [
   {
     groupId: "text",
     groupName: "文本",
-    components: [QNTitleMaterial],
+    components: [QNTitleMaterial, QNParagraphMaterial],
   },
   {
     groupId: "input",
