@@ -11,6 +11,7 @@ export type QNComponent = {
   type: QNComponentType;
   props: QNComponentProps;
   hidden?: boolean;
+  locked?: boolean;
   [key: string]: any;
 };
 
@@ -84,10 +85,18 @@ export const qncSlice = createSlice({
       ) => {
         const { qn_id, hidden } = action.payload;
         const curComponent = draft.list.find((c) => c.qn_id === qn_id);
+        draft.activeId = hidden ? getNextActiveId(qn_id, draft.list) : qn_id;
         if (curComponent) {
-          const nextActiveId = getNextActiveId(qn_id, draft.list);
           curComponent.hidden = hidden;
-          draft.activeId = nextActiveId;
+        }
+      },
+    ),
+    toggleQncLocked: produce(
+      (draft: QNComponentState, action: PayloadAction<{ qn_id: string }>) => {
+        const { qn_id } = action.payload;
+        const curComponent = draft.list.find((c) => c.qn_id === qn_id);
+        if (curComponent) {
+          curComponent.locked = !curComponent.locked;
         }
       },
     ),
@@ -102,6 +111,7 @@ export const {
   addQnc,
   changeQncProps,
   changeQncHidden,
+  toggleQncLocked,
 } = qncSlice.actions;
 
 export default qncSlice.reducer;

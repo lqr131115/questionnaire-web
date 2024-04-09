@@ -5,6 +5,7 @@ export type QNInputPropsType = {
   size: "large" | "middle" | "small";
 
   onValuesChange?: (changedValues: any, allValues: any) => void;
+  disabled?: boolean;
 };
 
 export const QNInputDefaultProps: QNInputPropsType = {

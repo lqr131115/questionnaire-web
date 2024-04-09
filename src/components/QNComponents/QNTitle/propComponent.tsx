@@ -3,7 +3,7 @@ import { Form, Input, Radio, Select } from "antd";
 import { QNTitlePropsType } from "./interface";
 
 const QNTitleProp: FC<Partial<QNTitlePropsType>> = (props) => {
-  const { text, level, align, onValuesChange } = props;
+  const { text, level, align, onValuesChange, disabled } = props;
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
@@ -18,6 +18,7 @@ const QNTitleProp: FC<Partial<QNTitlePropsType>> = (props) => {
       form={form}
       initialValues={{ text, level, align }}
       onValuesChange={onValuesChange}
+      disabled={disabled}
     >
       <Form.Item
         label="标题"

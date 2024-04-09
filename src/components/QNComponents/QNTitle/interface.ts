@@ -4,6 +4,7 @@ export type QNTitlePropsType = {
   align: "start" | "center" | "end";
 
   onValuesChange?: (changedValues: any, allValues: any) => void;
+  disabled?: boolean;
 };
 
 export const QNTitleDefaultProps: QNTitlePropsType = {

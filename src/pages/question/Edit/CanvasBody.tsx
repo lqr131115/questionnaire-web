@@ -52,12 +52,14 @@ const CanvasBody: FC<CanvasBodyProps> = (props) => {
         {componentList
           .filter((c) => !c.hidden)
           .map((m) => {
-            const { qn_id } = m;
+            const { qn_id, locked } = m;
             const wrapperCls = styles.wrapper,
-              activeCls = styles.active;
+              activeCls = styles.active,
+              lockedCls = styles.locked;
             const containerCls = classNames({
               [wrapperCls]: true,
               [activeCls]: activeId === qn_id,
+              [lockedCls]: locked,
             });
             return (
               <div

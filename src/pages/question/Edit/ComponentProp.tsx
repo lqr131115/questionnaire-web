@@ -12,7 +12,7 @@ const ComponentProp: FC = () => {
   const dispatch = useAppDispatch();
   const { activeQnc } = useGetQncInfo();
   if (activeQnc == null) return <NoSelected />;
-  const { type, props, qn_id } = activeQnc;
+  const { type, props, qn_id, hidden, locked } = activeQnc;
   const curMaterial = getMaterialByType(type);
   if (curMaterial == null) return <NoSelected />;
   const { propComponent: PropComponent } = curMaterial;
@@ -20,7 +20,13 @@ const ComponentProp: FC = () => {
   const onValuesChange = (_: any, allValues: any) => {
     dispatch(changeQncProps({ qn_id, newProps: allValues }));
   };
-  return <PropComponent {...props} onValuesChange={onValuesChange} />;
+  return (
+    <PropComponent
+      {...props}
+      onValuesChange={onValuesChange}
+      disabled={locked || hidden}
+    />
+  );
 };
 
 export default ComponentProp;

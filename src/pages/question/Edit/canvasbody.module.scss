@@ -21,4 +21,9 @@
   .active {
     border-color: $activeColor !important;
   }
+
+  .locked {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+  }
 }
