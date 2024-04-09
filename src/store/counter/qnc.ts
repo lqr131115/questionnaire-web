@@ -1,4 +1,6 @@
 import { produce } from "immer";
+import { nanoid } from "nanoid";
+import cloneDeep from "lodash.clonedeep";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { QNComponentType, QNComponentProps } from "@/components/QNComponents";
@@ -53,6 +55,18 @@ export const qncSlice = createSlice({
         draft.activeId = newComponent.qn_id;
       },
     ),
+    copyQnc: produce(
+      (draft: QNComponentState, action: PayloadAction<{ qn_id: string }>) => {
+        const { qn_id } = action.payload;
+        const curIdx = draft.list.findIndex((c) => c.qn_id === qn_id);
+        if (~curIdx) {
+          const curComponent = draft.list[curIdx];
+          const newComponent = { ...cloneDeep(curComponent), qn_id: nanoid() };
+          draft.list.splice(curIdx + 1, 0, newComponent);
+          draft.activeId = newComponent.qn_id;
+        }
+      },
+    ),
     deleteActiveQnc: produce((draft: QNComponentState) => {
       const { list, activeId } = draft;
       const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
@@ -61,10 +75,6 @@ export const qncSlice = createSlice({
         draft.list.splice(curActiveIdx, 1);
         draft.activeId = nextActiveId;
       }
-    }),
-    resetQnc: produce((draft: QNComponentState) => {
-      draft.activeId = "";
-      draft.list = [];
     }),
     changeQncProps: produce(
       (
@@ -100,6 +110,10 @@ export const qncSlice = createSlice({
         }
       },
     ),
+    resetQnc: produce((draft: QNComponentState) => {
+      draft.activeId = "";
+      draft.list = [];
+    }),
   },
 });
 
@@ -109,6 +123,7 @@ export const {
   resetQnc,
   deleteActiveQnc,
   addQnc,
+  copyQnc,
   changeQncProps,
   changeQncHidden,
   toggleQncLocked,

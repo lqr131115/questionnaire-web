@@ -5,12 +5,14 @@ import {
   EyeInvisibleOutlined,
   UnlockOutlined,
   LockOutlined,
+  CopyOutlined,
 } from "@ant-design/icons";
 import { useAppDispatch } from "@/store/hooks";
 import {
   deleteActiveQnc,
   changeQncHidden,
   toggleQncLocked,
+  copyQnc,
 } from "@/store/counter/qnc";
 import { useGetQncInfo } from "@/hooks/useGetQncInfo";
 const EditToolbar: FC = () => {
@@ -26,6 +28,9 @@ const EditToolbar: FC = () => {
   const handelLocked = () => {
     dispatch(toggleQncLocked({ qn_id: activeId }));
   };
+  const handelCopy = () => {
+    dispatch(copyQnc({ qn_id: activeId }));
+  };
   return (
     <Space>
       <Tooltip title="删除">
@@ -33,6 +38,7 @@ const EditToolbar: FC = () => {
           shape="circle"
           icon={<DeleteOutlined />}
           onClick={handelDelete}
+          disabled={!activeId}
         />
       </Tooltip>
       <Tooltip title="隐藏">
@@ -40,6 +46,7 @@ const EditToolbar: FC = () => {
           shape="circle"
           icon={<EyeInvisibleOutlined />}
           onClick={handelHidden}
+          disabled={!activeId}
         />
       </Tooltip>
       <Tooltip title={locked ? "解锁" : "锁定"}>
@@ -48,6 +55,15 @@ const EditToolbar: FC = () => {
           type={locked ? "primary" : "default"}
           icon={locked ? <LockOutlined /> : <UnlockOutlined />}
           onClick={handelLocked}
+          disabled={!activeId}
+        />
+      </Tooltip>
+      <Tooltip title="拷贝">
+        <Button
+          shape="circle"
+          icon={<CopyOutlined />}
+          onClick={handelCopy}
+          disabled={!activeId}
         />
       </Tooltip>
     </Space>
