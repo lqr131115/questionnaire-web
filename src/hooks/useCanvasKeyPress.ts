@@ -10,48 +10,39 @@ import {
 import { useAppDispatch } from "@/store/hooks";
 export const useCanvasKeyPress = (list: QNComponent[], activeId: string) => {
   const dispatch = useAppDispatch();
-  // 上移
-  useKeyPress(["uparrow"], () => {
-    if (!activeId) {
-      return;
-    }
+
+  const handleMove = (direction: "up" | "down") => {
+    if (!activeId) return;
     const idx = list.findIndex((m) => m.qn_id === activeId);
     if (~idx) {
-      if (idx === 0) {
-        return;
+      const nextIdx = direction === "up" ? idx - 1 : idx + 1;
+      if (nextIdx >= 0 && nextIdx < list.length) {
+        const nextId = list[nextIdx].qn_id;
+        dispatch(setQncActiveId(nextId));
       }
-      const nextId = list[idx - 1].qn_id;
-      dispatch(setQncActiveId(nextId));
     }
-  });
-  // 下移
-  useKeyPress(["downarrow"], () => {
-    if (!activeId) {
-      return;
-    }
-    const idx = list.findIndex((m) => m.qn_id === activeId);
-    if (~idx) {
-      if (idx === list.length - 1) {
-        return;
-      }
-      const nextId = list[idx + 1].qn_id;
-      dispatch(setQncActiveId(nextId));
-    }
-  });
-  //  Delete
-  useKeyPress(["backspace", "delete"], () => {
+  };
+
+  const handleDelete = () => {
     dispatch(deleteActiveQnc());
-  });
-  // hidden ctrl + h 浏览器快捷键占用
-  useKeyPress(["alt.h"], () => {
+  };
+
+  const handleHidden = () => {
     dispatch(changeQncHidden({ qn_id: activeId, hidden: true }));
-  });
-  // lock & unlock ctrl + l 浏览器快捷键占用
-  useKeyPress(["alt.l"], () => {
+  };
+
+  const handleToggleLock = () => {
     dispatch(toggleQncLocked({ qn_id: activeId }));
-  });
-  // copy
-  useKeyPress(["ctrl.c"], () => {
+  };
+
+  const handleCopy = () => {
     dispatch(copyQnc({ qn_id: activeId }));
-  });
+  };
+
+  useKeyPress(["uparrow"], () => handleMove("up"));
+  useKeyPress(["downarrow"], () => handleMove("down"));
+  useKeyPress(["backspace", "delete"], handleDelete);
+  useKeyPress(["alt.h"], handleHidden);
+  useKeyPress(["alt.l"], handleToggleLock);
+  useKeyPress(["ctrl.c"], handleCopy);
 };
