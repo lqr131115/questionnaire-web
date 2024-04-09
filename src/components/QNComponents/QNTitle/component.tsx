@@ -6,7 +6,7 @@ const { Title } = Typography;
 const QNTitle: FC<Partial<QNTitlePropsType>> = (props) => {
   const { text, level, align } = { ...QNTitleDefaultProps, ...props };
   return (
-    <Title level={level} style={{ textAlign: align }}>
+    <Title level={level} style={{ textAlign: align, margin: 0 }}>
       {text}
     </Title>
   );

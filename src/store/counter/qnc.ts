@@ -17,14 +17,21 @@ export type QNComponent = {
   [key: string]: any;
 };
 
+type QNActionHistory = {
+  oldId: string;
+  oldList: QNComponent[];
+};
+
 type QNComponentState = {
   activeId: string;
   list: QNComponent[];
+  history: QNActionHistory[];
 };
 
 const initialState: QNComponentState = {
   activeId: "",
   list: [],
+  history: [],
 };
 
 // qnc --> questionnaire Component
@@ -42,10 +49,21 @@ export const qncSlice = createSlice({
         draft.activeId = action.payload;
       },
     ),
+    rollbackQncAction: produce((draft: QNComponentState) => {
+      const { history } = draft;
+      const top = history.pop();
+      if (top) {
+        const { oldId, oldList } = top;
+        draft.list = oldList;
+        draft.activeId = oldId;
+        draft.history = [...history];
+      }
+    }),
     addQnc: produce(
       (draft: QNComponentState, action: PayloadAction<QNComponent>) => {
         const newComponent = action.payload;
         const { list, activeId } = draft;
+        draft.history.push({ oldId: activeId, oldList: [...list] });
         const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
         if (~curActiveIdx) {
           draft.list.splice(curActiveIdx + 1, 0, newComponent);
@@ -57,10 +75,12 @@ export const qncSlice = createSlice({
     ),
     copyQnc: produce(
       (draft: QNComponentState, action: PayloadAction<{ qn_id: string }>) => {
+        const { list, activeId } = draft;
         const { qn_id } = action.payload;
         const curIdx = draft.list.findIndex((c) => c.qn_id === qn_id);
         if (~curIdx) {
-          const curComponent = draft.list[curIdx];
+          draft.history.push({ oldId: activeId, oldList: [...list] });
+          const curComponent = list[curIdx];
           const newComponent = { ...cloneDeep(curComponent), qn_id: nanoid() };
           draft.list.splice(curIdx + 1, 0, newComponent);
           draft.activeId = newComponent.qn_id;
@@ -71,6 +91,7 @@ export const qncSlice = createSlice({
       const { list, activeId } = draft;
       const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
       if (~curActiveIdx) {
+        draft.history.push({ oldId: activeId, oldList: [...list] });
         const nextActiveId = getNextActiveId(activeId, list);
         draft.list.splice(curActiveIdx, 1);
         draft.activeId = nextActiveId;
@@ -113,6 +134,7 @@ export const qncSlice = createSlice({
     resetQnc: produce((draft: QNComponentState) => {
       draft.activeId = "";
       draft.list = [];
+      draft.history = [];
     }),
   },
 });
@@ -127,6 +149,7 @@ export const {
   changeQncProps,
   changeQncHidden,
   toggleQncLocked,
+  rollbackQncAction,
 } = qncSlice.actions;
 
 export default qncSlice.reducer;

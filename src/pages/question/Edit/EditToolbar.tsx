@@ -6,6 +6,7 @@ import {
   UnlockOutlined,
   LockOutlined,
   CopyOutlined,
+  RollbackOutlined,
 } from "@ant-design/icons";
 import { useAppDispatch } from "@/store/hooks";
 import {
@@ -13,11 +14,12 @@ import {
   changeQncHidden,
   toggleQncLocked,
   copyQnc,
+  rollbackQncAction,
 } from "@/store/counter/qnc";
 import { useGetQncInfo } from "@/hooks/useGetQncInfo";
 const EditToolbar: FC = () => {
   const dispatch = useAppDispatch();
-  const { activeId, activeQnc } = useGetQncInfo();
+  const { activeId, activeQnc, history } = useGetQncInfo();
   const { locked } = activeQnc || {};
   const handelDelete = () => {
     dispatch(deleteActiveQnc());
@@ -30,6 +32,9 @@ const EditToolbar: FC = () => {
   };
   const handelCopy = () => {
     dispatch(copyQnc({ qn_id: activeId }));
+  };
+  const handelRollback = () => {
+    dispatch(rollbackQncAction());
   };
   return (
     <Space>
@@ -64,6 +69,14 @@ const EditToolbar: FC = () => {
           icon={<CopyOutlined />}
           onClick={handelCopy}
           disabled={!activeId}
+        />
+      </Tooltip>
+      <Tooltip title="撤销">
+        <Button
+          shape="circle"
+          icon={<RollbackOutlined />}
+          onClick={handelRollback}
+          disabled={history.length === 0}
         />
       </Tooltip>
     </Space>
