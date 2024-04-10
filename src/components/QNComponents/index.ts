@@ -4,6 +4,7 @@ import QNInfoMaterial, { QNInfoPropsType } from "./QNInfo";
 import QNInputNumberMaterial, { QNInputNumberPropsType } from "./QNInputNumber";
 import QNTextAreaMaterial, { QNTextAreaPropsType } from "./QNTextarea";
 import QNInputMaterial, { QNInputPropsType } from "./QNInput";
+import QNRadioMaterial, { QNRadioPropsType } from "./QNRadio";
 
 export type QNComponentProps = Partial<
   QNTitlePropsType &
@@ -11,7 +12,8 @@ export type QNComponentProps = Partial<
     QNInfoPropsType &
     QNInputNumberPropsType &
     QNTextAreaPropsType &
-    QNInputPropsType
+    QNInputPropsType &
+    QNRadioPropsType
 >;
 
 // 前后端一致
@@ -21,7 +23,8 @@ export type QNComponentType =
   | "qnInfo"
   | "qnInputNumber"
   | "qnInput"
-  | "qnTextArea";
+  | "qnTextArea"
+  | "qnRadio";
 
 // 单个物料协议 (前端定义的, 包括组件类型)
 export interface IQNComponent {
@@ -40,6 +43,7 @@ const qncMaterialList: IQNComponent[] = [
   QNInputNumberMaterial,
   QNTextAreaMaterial,
   QNInputMaterial,
+  QNRadioMaterial,
 ];
 
 export const qncMaterialGroup = [
@@ -52,6 +56,11 @@ export const qncMaterialGroup = [
     groupId: "input",
     groupName: "输入",
     components: [QNInputNumberMaterial, QNInputMaterial, QNTextAreaMaterial],
+  },
+  {
+    groupId: "choice",
+    groupName: "选择",
+    components: [QNRadioMaterial],
   },
   {
     groupId: "other",
