@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { nanoid } from "nanoid";
-import { Typography, Row, Col, Flex } from "antd";
+import { Typography, Row, Col, Flex, Empty } from "antd";
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { IQNComponent, qncMaterialGroup } from "@/components/QNComponents";
 import styles from "./ComponentLib.module.scss";
@@ -22,6 +22,7 @@ const ComponentLib: FC = () => {
     };
     dispatch(addQnc(newComponent));
   };
+
   return (
     <div className={styles.lib}>
       {qncMaterialGroup.map((group, index) => {
@@ -31,28 +32,35 @@ const ComponentLib: FC = () => {
             <Title level={4} style={{ marginTop: index === 0 ? 0 : 10 }}>
               {groupName}
             </Title>
-            <Row className={styles.row}>
-              {components.map((c, i) => {
-                const { title, type, icon: IconSvg } = c;
-                return (
-                  <Col
-                    key={type + i}
-                    className={styles.col}
-                    span={24 / cols}
-                    style={{
-                      borderTop: i < cols ? borderStyle : "none",
-                      borderLeft: i % cols === 0 ? borderStyle : "none",
-                    }}
-                    onClick={() => handleClick(c)}
-                  >
-                    <Flex justify="center" align="center">
-                      {<Icon component={() => <IconSvg />} />}
-                      <span className={styles.title}> {title}</span>
-                    </Flex>
-                  </Col>
-                );
-              })}
-            </Row>
+            {components.length === 0 ? (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="No Component"
+              />
+            ) : (
+              <Row className={styles.row}>
+                {components.map((c, i) => {
+                  const { title, type, icon: IconSvg } = c;
+                  return (
+                    <Col
+                      key={type + i}
+                      className={styles.col}
+                      span={24 / cols}
+                      style={{
+                        borderTop: i < cols ? borderStyle : "none",
+                        borderLeft: i % cols === 0 ? borderStyle : "none",
+                      }}
+                      onClick={() => handleClick(c)}
+                    >
+                      <Flex justify="center" align="center">
+                        {<Icon component={() => <IconSvg />} />}
+                        <span className={styles.title}> {title}</span>
+                      </Flex>
+                    </Col>
+                  );
+                })}
+              </Row>
+            )}
           </div>
         );
       })}

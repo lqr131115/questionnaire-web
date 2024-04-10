@@ -53,6 +53,11 @@ export const qncMaterialGroup = [
     groupName: "输入",
     components: [QNInputNumberMaterial, QNInputMaterial, QNTextAreaMaterial],
   },
+  {
+    groupId: "other",
+    groupName: "其他",
+    components: [],
+  },
 ];
 
 export const getMaterialByType = (
