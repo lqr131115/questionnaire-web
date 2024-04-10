@@ -1,26 +1,24 @@
 import React, { FC, useEffect } from "react";
-import { Form, Input, Radio } from "antd";
-import { QNInputPropsType } from "./interface";
+import { Form, Input, InputNumber } from "antd";
+import { QNInputNumberPropsType } from "./interface";
 
-const QNInputProp: FC<Partial<QNInputPropsType>> = (props) => {
-  const { title, defaultValue, placeholder, size, onValuesChange, disabled } =
-    props;
+const QNInputNumberProp: FC<Partial<QNInputNumberPropsType>> = (props) => {
+  const { title, defaultValue, placeholder, onValuesChange, disabled } = props;
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
       title,
       defaultValue,
       placeholder,
-      size,
     });
-  }, [title, defaultValue, placeholder, size]);
+  }, [title, defaultValue, placeholder]);
 
   return (
     <Form
       layout="vertical"
       form={form}
       onValuesChange={onValuesChange}
-      initialValues={{ title, defaultValue, placeholder, size }}
+      initialValues={{ title, defaultValue, placeholder }}
       disabled={disabled}
     >
       <Form.Item
@@ -33,18 +31,11 @@ const QNInputProp: FC<Partial<QNInputPropsType>> = (props) => {
       <Form.Item label="提示" name="placeholder">
         <Input />
       </Form.Item>
-      <Form.Item name="size" label="尺寸">
-        <Radio.Group>
-          <Radio value="large">大</Radio>
-          <Radio value="middle">中</Radio>
-          <Radio value="small">小</Radio>
-        </Radio.Group>
-      </Form.Item>
       <Form.Item label="默认值" name="defaultValue">
-        <Input />
+        <InputNumber style={{ width: "100%" }} />
       </Form.Item>
     </Form>
   );
 };
 
-export default QNInputProp;
+export default QNInputNumberProp;
