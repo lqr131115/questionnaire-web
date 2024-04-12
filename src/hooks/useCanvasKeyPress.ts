@@ -41,8 +41,8 @@ export const useCanvasKeyPress = (list: QNComponent[], activeId: string) => {
 
   useKeyPress(["uparrow"], () => handleMove("up"));
   useKeyPress(["downarrow"], () => handleMove("down"));
-  useKeyPress(["shift.d"], handleDelete);
-  useKeyPress(["shift.h"], handleHidden); // ctrl.h 快捷键 浏览器常用
-  useKeyPress(["shift.l"], handleToggleLock); // ctrl.l 快捷键 浏览器常用
-  useKeyPress(["shift.c"], handleCopy); // ctrl.c 快捷键 操作系统常用
+  useKeyPress(["shift.alt.d"], handleDelete);
+  useKeyPress(["shift.alt.h"], handleHidden); // ctrl.h 快捷键 浏览器常用
+  useKeyPress(["shift.alt.l"], handleToggleLock); // ctrl.l 快捷键 浏览器常用
+  useKeyPress(["shift.alt.c"], handleCopy); // ctrl.c 快捷键 操作系统常用
 };

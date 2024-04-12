@@ -1,67 +1,30 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { nanoid } from "nanoid";
 import { Checkbox, Form, Input, Select, Space, Button } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import cloneDeep from "lodash.clonedeep";
-import { QNRadioDefaultProps, QNRadioPropsType } from "./interface";
+import { QNRadioDefaultProps, QNRadioPropsType, OptionType } from "./interface";
 const { Option } = Select;
 const { Compact } = Space;
 const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
-  const {
-    title,
-    options: defaultOpts,
-    defaultValue,
-    vertical,
-    onValuesChange,
-    disabled,
-  } = {
+  const { title, options, defaultValue, vertical, onValuesChange, disabled } = {
     ...QNRadioDefaultProps,
     ...props,
   };
   const [form] = Form.useForm();
-  const [options, setOptions] = useState(defaultOpts);
-  const [changedValues, setChangedValues] = useState({});
   useEffect(() => {
     form.setFieldsValue({
       title,
+      options,
       defaultValue,
       vertical,
     });
-  }, [title, defaultValue, vertical]);
-  useEffect(() => {
-    handleValuesChange(changedValues, { ...form.getFieldsValue(), options });
-  }, [options]);
-  const handleAddOpt = () => {
-    setOptions([
-      ...options,
-      {
-        value: nanoid(),
-        label: "",
-      },
-    ]);
-  };
-  const handleDelOpt = (v: string) => {
-    setOptions([...options].filter((o) => o.value !== v));
-  };
-  const handlePatchOpt = (e: ChangeEvent, v: string) => {
-    const curIdx = options.findIndex((o) => o.value === v);
-    if (~curIdx) {
-      const label = (e.target as any).value;
-      const tempOpts = cloneDeep(options);
-      tempOpts[curIdx].label = label;
-      setOptions(tempOpts);
-    }
-  };
+  }, [title, options, defaultValue, vertical]);
 
-  const handleValuesChange = (changedValues: any, allValues: any) => {
-    setChangedValues(changedValues);
-    onValuesChange && onValuesChange(changedValues, { ...allValues, options });
-  };
   return (
     <Form
       form={form}
       layout="vertical"
-      onValuesChange={handleValuesChange}
+      onValuesChange={onValuesChange}
       initialValues={{ title, defaultValue, vertical }}
       disabled={disabled}
     >
@@ -72,7 +35,66 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
       >
         <Input />
       </Form.Item>
-      <Form.Item label="选项" className="my_item">
+      <Form.Item label="选项">
+        <Form.List name="options">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, ...rest }) => (
+                <Compact key={key} style={{ width: "100%" }}>
+                  <Form.Item
+                    {...rest}
+                    name={[name, "label"]}
+                    style={{ width: "70%" }}
+                    rules={[
+                      { required: true, message: "选项不能为空" },
+                      ({ getFieldsValue }) => ({
+                        validator(_, value) {
+                          const { options = [] } = getFieldsValue();
+                          const exist = options.filter(
+                            (opt: OptionType) => opt.label === value,
+                          );
+                          if (exist.length !== 1) {
+                            return Promise.reject(new Error("选项不能重复"));
+                          }
+                          return Promise.resolve();
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input placeholder="请输入" />
+                  </Form.Item>
+                  {fields.length > 2 && (
+                    <Form.Item>
+                      <Button
+                        type="link"
+                        danger
+                        icon={<DeleteOutlined />}
+                        onClick={() => remove(name)}
+                      />
+                    </Form.Item>
+                  )}
+                </Compact>
+              ))}
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() =>
+                    add({
+                      value: nanoid(),
+                      label: "",
+                    })
+                  }
+                  icon={<PlusOutlined />}
+                >
+                  新增选项
+                </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
+      </Form.Item>
+
+      {/* <Form.Item label="选项" className="my_item">
         <Space direction="vertical" style={{ width: "90%" }}>
           <Space direction="vertical" style={{ width: "100%" }}>
             {options.map((o) => {
@@ -96,7 +118,7 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
             新增选项
           </Button>
         </Space>
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item name="defaultValue" label="默认值">
         <Select placeholder="请选择" allowClear>
           {options.map((o) => (
