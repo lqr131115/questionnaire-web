@@ -5,6 +5,7 @@ import QNInputNumberMaterial, { QNInputNumberPropsType } from "./QNInputNumber";
 import QNTextAreaMaterial, { QNTextAreaPropsType } from "./QNTextarea";
 import QNInputMaterial, { QNInputPropsType } from "./QNInput";
 import QNRadioMaterial, { QNRadioPropsType } from "./QNRadio";
+import QNCheckboxMaterial, { QNCheckboxPropsType } from "./QNCheckbox";
 
 export type QNComponentProps = Partial<
   QNTitlePropsType &
@@ -13,7 +14,8 @@ export type QNComponentProps = Partial<
     QNInputNumberPropsType &
     QNTextAreaPropsType &
     QNInputPropsType &
-    QNRadioPropsType
+    QNRadioPropsType &
+    QNCheckboxPropsType
 >;
 
 // 前后端一致
@@ -24,14 +26,15 @@ export type QNComponentType =
   | "qnInputNumber"
   | "qnInput"
   | "qnTextArea"
-  | "qnRadio";
+  | "qnRadio"
+  | "qnCheckbox";
 
 // 单个物料协议 (前端定义的, 包括组件类型)
 export interface IQNComponent {
   title: string;
   type: QNComponentType;
   component: React.FC<QNComponentProps>; // 画布中显示的组件
-  propComponent: React.FC<QNComponentProps>; // 激活组件的属性面板
+  propComponent: React.FC<QNComponentProps>; // 激活组件在属性面板显示的内容
   props: QNComponentProps;
   [key: string]: any;
 }
@@ -44,6 +47,7 @@ const qncMaterialList: IQNComponent[] = [
   QNTextAreaMaterial,
   QNInputMaterial,
   QNRadioMaterial,
+  QNCheckboxMaterial,
 ];
 
 export const qncMaterialGroup = [
@@ -60,7 +64,7 @@ export const qncMaterialGroup = [
   {
     groupId: "choice",
     groupName: "选择",
-    components: [QNRadioMaterial],
+    components: [QNRadioMaterial, QNCheckboxMaterial],
   },
   {
     groupId: "other",

@@ -1,12 +1,12 @@
-export type OptionType = {
+export type RadioOptionType = {
   value: string;
   label: string;
 };
 
 export type QNRadioPropsType = {
   title: string;
-  options: OptionType[];
-  defaultValue?: string;
+  options: RadioOptionType[];
+  defaultValue?: any;
   vertical: boolean;
   onValuesChange?: (changedValues: any, allValues: any) => void;
   disabled?: boolean;

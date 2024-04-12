@@ -1,17 +1,16 @@
 import React, { FC, useEffect } from "react";
 import { nanoid } from "nanoid";
-import { Checkbox, Form, Input, Select, Space, Button } from "antd";
+import { Checkbox, Form, Input, Space, Button } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import {
-  QNRadioDefaultProps,
-  QNRadioPropsType,
-  RadioOptionType,
+  QNCheckboxDefaultProps,
+  QNCheckboxPropsType,
+  CheckboxOptionType,
 } from "./interface";
-const { Option } = Select;
 const { Compact } = Space;
-const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
-  const { title, options, defaultValue, vertical, onValuesChange, disabled } = {
-    ...QNRadioDefaultProps,
+const QNCheckboxProp: FC<Partial<QNCheckboxPropsType>> = (props) => {
+  const { title, options, vertical, onValuesChange, disabled } = {
+    ...QNCheckboxDefaultProps,
     ...props,
   };
   const [form] = Form.useForm();
@@ -19,17 +18,16 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
     form.setFieldsValue({
       title,
       options,
-      defaultValue,
       vertical,
     });
-  }, [title, options, defaultValue, vertical]);
+  }, [title, options, vertical]);
 
   return (
     <Form
       form={form}
       layout="vertical"
       onValuesChange={onValuesChange}
-      initialValues={{ title, defaultValue, vertical }}
+      initialValues={{ title, vertical }}
       disabled={disabled}
     >
       <Form.Item
@@ -44,7 +42,15 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...rest }) => (
-                <Compact key={key} block>
+                <Compact key={key} style={{ width: "100%" }}>
+                  <Form.Item
+                    {...rest}
+                    style={{ marginRight: 10 }}
+                    name={[name, "checked"]}
+                    valuePropName="checked"
+                  >
+                    <Checkbox />
+                  </Form.Item>
                   <Form.Item
                     {...rest}
                     name={[name, "label"]}
@@ -55,7 +61,7 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
                         validator(_, value) {
                           const { options = [] } = getFieldsValue();
                           const exist = options.filter(
-                            (opt: RadioOptionType) => opt.label === value,
+                            (opt: CheckboxOptionType) => opt.label === value,
                           );
                           if (exist.length !== 1) {
                             return Promise.reject(new Error("选项不能重复"));
@@ -67,7 +73,7 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
                   >
                     <Input placeholder="请输入" />
                   </Form.Item>
-                  {fields.length > 2 && (
+                  {fields.length > 1 && (
                     <Form.Item>
                       <Button
                         type="link"
@@ -86,6 +92,7 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
                     add({
                       value: nanoid(),
                       label: "",
+                      checked: false,
                     })
                   }
                   icon={<PlusOutlined />}
@@ -97,16 +104,6 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
           )}
         </Form.List>
       </Form.Item>
-      <Form.Item name="defaultValue" label="默认值">
-        <Select placeholder="请选择" allowClear>
-          {options &&
-            options.map((o) => (
-              <Option key={o.value} value={o.value}>
-                {o.label}
-              </Option>
-            ))}
-        </Select>
-      </Form.Item>
       <Form.Item name="vertical" valuePropName="checked">
         <Checkbox>垂直排列</Checkbox>
       </Form.Item>
@@ -114,4 +111,4 @@ const QNRadioProp: FC<Partial<QNRadioPropsType>> = (props) => {
   );
 };
 
-export default QNRadioProp;
+export default QNCheckboxProp;
