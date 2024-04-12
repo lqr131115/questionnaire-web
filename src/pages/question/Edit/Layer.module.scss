@@ -1,0 +1,29 @@
+.layer {
+  $hoverBgColor: #f5f5f5;
+  $fontColor: rgba(0, 0, 0, 0.88);
+  $fontSize: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: $hoverBgColor;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: $fontSize;
+    .text {
+      font-weight: bolder;
+    }
+  }
+
+  .action {
+    font-size: $fontSize;
+    color: $fontColor;
+    .icon {
+      margin-left: 10px;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { AppstoreOutlined, PicCenterOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 import ComponentLib from "./ComponentLib";
+import Layer from "./Layer";
 
 const tabItems: any[] = [
   {
@@ -13,14 +14,14 @@ const tabItems: any[] = [
   {
     key: "layer",
     label: "图层",
-    children: "layer",
+    children: <Layer />,
     icon: <PicCenterOutlined />,
   },
 ];
 const LeftPanel: FC = () => {
   return (
     <>
-      <Tabs defaultActiveKey="componentLib" items={tabItems} />
+      <Tabs defaultActiveKey="layer" items={tabItems} />
     </>
   );
 };
