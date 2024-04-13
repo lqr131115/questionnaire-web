@@ -109,6 +109,18 @@ export const qncSlice = createSlice({
         }
       },
     ),
+    changeQncTitle: produce(
+      (
+        draft: QNComponentState,
+        action: PayloadAction<{ qn_id: string; title: string }>,
+      ) => {
+        const { qn_id, title } = action.payload;
+        const curActiveIdx = draft.list.findIndex((c) => c.qn_id === qn_id);
+        if (~curActiveIdx) {
+          draft.list[curActiveIdx].title = title;
+        }
+      },
+    ),
     changeQncHidden: produce(
       (
         draft: QNComponentState,
@@ -122,6 +134,7 @@ export const qncSlice = createSlice({
         }
       },
     ),
+
     toggleQncLocked: produce(
       (draft: QNComponentState, action: PayloadAction<{ qn_id: string }>) => {
         const { qn_id } = action.payload;
@@ -147,6 +160,7 @@ export const {
   addQnc,
   copyQnc,
   changeQncProps,
+  changeQncTitle,
   changeQncHidden,
   toggleQncLocked,
   rollbackQncAction,
