@@ -1,5 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { Form, Input, Button } from "antd";
+import { useAppDispatch } from "@/store/hooks";
+import { setPageSetting } from "@/store/counter/page";
 const { TextArea } = Input;
 export type PageSettingProps = {
   title: string;
@@ -20,6 +22,7 @@ const PageSetting: FC<Partial<PageSettingProps>> = (props) => {
     onDrawerClose,
   } = props;
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     form.setFieldsValue({
       title,
@@ -28,8 +31,9 @@ const PageSetting: FC<Partial<PageSettingProps>> = (props) => {
       scripts,
     });
   }, [title, description, styles, scripts]);
+
   const onFinish = (values: any) => {
-    console.log(values);
+    dispatch(setPageSetting(values));
     onDrawerClose && onDrawerClose();
   };
   return (

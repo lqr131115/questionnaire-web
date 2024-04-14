@@ -23,8 +23,8 @@ export const pageSlice = createSlice({
   initialState,
   reducers: {
     setPageSetting: produce(
-      (draft: PageState, action: PayloadAction<PageState>) => {
-        draft.setting = action.payload.setting;
+      (draft: PageState, action: PayloadAction<PageSettingType>) => {
+        draft.setting = action.payload;
       },
     ),
   },
