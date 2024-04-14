@@ -15,7 +15,7 @@ export type QNCheckboxPropsType = {
 };
 
 export const QNCheckboxDefaultProps: QNCheckboxPropsType = {
-  title: "单选",
+  title: "多选",
   options: [
     { value: "itemA", label: "选项A", checked: false },
     { value: "itemB", label: "选项B", checked: false },

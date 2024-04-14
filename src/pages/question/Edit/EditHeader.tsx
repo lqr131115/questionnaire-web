@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Typography, Space, Drawer } from "antd";
+import { Button, Typography, Space, Drawer, ConfigProvider } from "antd";
 import { LeftOutlined, EditOutlined, SettingOutlined } from "@ant-design/icons";
 import styles from "./EditHeader.module.scss";
 import EditToolbar from "./EditToolbar";
-
+import PageSetting from "./PageSetting";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
@@ -55,11 +55,21 @@ const EditHeader: FC = () => {
             icon={<SettingOutlined style={{ color: "black" }} />}
             onClick={showPageSettingDrawer}
           />
-          <Drawer title="页面设置" onClose={closePageSettingDrawer} open={open}>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </Drawer>
+          <ConfigProvider
+            drawer={{
+              styles: {
+                body: { padding: "5px 10px" },
+              },
+            }}
+          >
+            <Drawer
+              title="页面设置"
+              onClose={closePageSettingDrawer}
+              open={open}
+            >
+              <PageSetting onDrawerClose={closePageSettingDrawer} />
+            </Drawer>
+          </ConfigProvider>
         </Space>
       </div>
     </div>
