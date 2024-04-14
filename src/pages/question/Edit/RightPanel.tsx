@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { AlignLeftOutlined, SettingOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 import ComponentProp from "./ComponentProp";
+import ComponentSetting from "./ComponentSetting";
 const tabItems: any[] = [
   {
     key: "prop",
@@ -12,7 +13,7 @@ const tabItems: any[] = [
   {
     key: "setting",
     label: "设置",
-    children: "页面设置",
+    children: <ComponentSetting />,
     icon: <SettingOutlined />,
   },
 ];
