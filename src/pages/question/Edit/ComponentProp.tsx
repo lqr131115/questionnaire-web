@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Result } from "antd";
-import { useGetQncInfo } from "@/hooks/useGetQncInfo";
+import { useGetQncInfo } from "@/hooks";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useAppDispatch } from "@/store/hooks";
 import { changeQncProps } from "@/store/counter/qnc";

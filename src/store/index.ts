@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./counter/user";
 import qncReducer from "./counter/qnc";
+import pageReducer from "./counter/page";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     qnc: qncReducer,
+    page: pageReducer,
   },
 });
 

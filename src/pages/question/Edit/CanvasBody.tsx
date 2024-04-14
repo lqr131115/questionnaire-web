@@ -2,11 +2,10 @@ import React, { FC } from "react";
 import { Spin } from "antd";
 import classNames from "classnames";
 import styles from "./canvasbody.module.scss";
-import { useGetQncInfo } from "@/hooks/useGetQncInfo";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useAppDispatch } from "@/store/hooks";
 import { setQncActiveId } from "@/store/counter/qnc";
-import { useCanvasKeyPress } from "@/hooks";
+import { useCanvasKeyPress, useGetQncInfo } from "@/hooks";
 type CanvasBodyProps = {
   loading: boolean;
 };
