@@ -11,6 +11,7 @@ export type QNListSearchOptions = {
   isDeleted: number;
   page: number;
   pageSize: number;
+  [key: string]: any;
 };
 
 export const getQNList = (data: Partial<QNListSearchOptions> = {}) =>

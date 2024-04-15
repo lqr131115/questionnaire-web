@@ -1,18 +1,21 @@
 import React, { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRequest } from "ahooks";
 import { Button, Typography, Space, Drawer, ConfigProvider, Input } from "antd";
 import {
   LeftOutlined,
   EditOutlined,
   SettingOutlined,
   EnterOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import styles from "./EditHeader.module.scss";
 import EditToolbar from "./EditToolbar";
 import PageSetting from "./PageSetting";
-import { useGetPageInfo } from "@/hooks";
+import { useGetPageInfo, useGetQncInfo } from "@/hooks";
 import { setPageSetting } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";
+import { patchQN } from "@/api";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
@@ -26,9 +29,31 @@ const EditHeader: FC = () => {
   const closePageSettingDrawer = () => {
     setOpen(false);
   };
+  const { id } = useParams();
   const onTitleChange = (e: any) => {
     const newTitle = e.target.value;
     dispatch(setPageSetting({ ...setting, title: newTitle }));
+  };
+  const SaveButton: FC = () => {
+    const { list } = useGetQncInfo();
+    const { setting } = useGetPageInfo();
+    const { loading, run: doSave } = useRequest(
+      async () => {
+        if (!id) return;
+        const res = await patchQN(id, { ...setting, componentList: list });
+        return res.data;
+      },
+      { manual: true },
+    );
+    return (
+      <Button
+        disabled={loading}
+        onClick={doSave}
+        icon={loading ? <LoadingOutlined /> : null}
+      >
+        保存
+      </Button>
+    );
   };
   return (
     <div className={styles.wrapper}>
@@ -68,7 +93,7 @@ const EditHeader: FC = () => {
       </div>
       <div className={styles.right}>
         <Space>
-          <Button>保存</Button>
+          {<SaveButton />}
           <Button type="primary">发布</Button>
           <Button
             type="link"
