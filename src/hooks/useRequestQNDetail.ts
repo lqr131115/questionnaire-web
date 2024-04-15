@@ -18,9 +18,9 @@ export const useRequestQNDetail = () => {
 
   useEffect(() => {
     if (!data) return;
-    const { componentList = [], setting } = data;
+    const { componentList = [], title, description, styles, scripts } = data;
     dispatch(setQncList(componentList));
-    dispatch(setPageSetting(setting));
+    dispatch(setPageSetting({ title, description, styles, scripts }));
     if (componentList.length) {
       dispatch(setQncActiveId(componentList[0]?.qn_id ?? ""));
     }
