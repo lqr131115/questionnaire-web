@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRequest } from "ahooks";
+import { useKeyPress, useRequest } from "ahooks";
 import { Button, Typography, Space, Drawer, ConfigProvider, Input } from "antd";
 import {
   LeftOutlined,
@@ -45,6 +45,11 @@ const EditHeader: FC = () => {
       },
       { manual: true },
     );
+    useKeyPress(["shift.alt.s"], (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (!loading) doSave();
+    });
+
     return (
       <Button
         disabled={loading}
