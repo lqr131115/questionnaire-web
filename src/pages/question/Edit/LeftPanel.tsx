@@ -21,7 +21,7 @@ const tabItems: any[] = [
 const LeftPanel: FC = () => {
   return (
     <>
-      <Tabs defaultActiveKey="layer" items={tabItems} />
+      <Tabs defaultActiveKey="componentLib" items={tabItems} />
     </>
   );
 };

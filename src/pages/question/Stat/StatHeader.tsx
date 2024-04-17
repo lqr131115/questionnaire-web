@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Typography, Space, Input } from "antd";
 import { LeftOutlined, EditOutlined, EnterOutlined } from "@ant-design/icons";
 import styles from "./StatHeader.module.scss";
@@ -11,6 +11,7 @@ const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
   const { setting } = useGetPageInfo();
+  const { id } = useParams();
   const [editing, setEditing] = useState(false);
   const dispatch = useAppDispatch();
   const onTitleChange = (e: any) => {
@@ -53,7 +54,14 @@ const EditHeader: FC = () => {
       <div className={styles.middle}>
         <StatToolbar />
       </div>
-      <div className={styles.right}>right</div>
+      <div className={styles.right}>
+        <Button
+          type="primary"
+          onClick={() => navigator(`/question/edit/${id}`)}
+        >
+          编辑问卷
+        </Button>
+      </div>
     </div>
   );
 };
