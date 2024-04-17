@@ -1,7 +1,7 @@
 import { produce } from "immer";
 import { nanoid } from "nanoid";
 import cloneDeep from "lodash.clonedeep";
-import { arrayMove } from "@dnd-kit/sortable";
+import { arrayMove, arraySwap } from "@dnd-kit/sortable";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { QNComponentType, QNComponentProps } from "@/components/QNComponents";
@@ -98,6 +98,27 @@ export const qncSlice = createSlice({
         }
       },
     ),
+    moveQnc: produce(
+      (
+        draft: QNComponentState,
+        action: PayloadAction<{ qn_id: string; direction: string }>,
+      ) => {
+        const { list } = draft;
+        const { qn_id, direction } = action.payload;
+        const oldIndex = draft.list.findIndex((c) => c.qn_id === qn_id);
+        if (direction === "up") {
+          if (oldIndex > 0) {
+            draft.list = arraySwap(list, oldIndex, oldIndex - 1);
+          }
+        } else if (direction === "down") {
+          if (oldIndex < list.length - 1) {
+            draft.list = arraySwap(list, oldIndex, oldIndex + 1);
+          }
+        } else {
+          console.error("Invalid direction" + direction);
+        }
+      },
+    ),
     deleteActiveQnc: produce((draft: QNComponentState) => {
       const { list, activeId } = draft;
       const curActiveIdx = list.findIndex((c) => c.qn_id === activeId);
@@ -170,6 +191,7 @@ export const {
   deleteActiveQnc,
   addQnc,
   copyQnc,
+  moveQnc,
   changeQncProps,
   changeQncTitle,
   changeQncHidden,
