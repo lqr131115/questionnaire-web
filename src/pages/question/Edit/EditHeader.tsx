@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useKeyPress, useRequest } from "ahooks";
+import { useKeyPress, useRequest, useDebounceEffect } from "ahooks";
 import { Button, Typography, Space, Drawer, ConfigProvider, Input } from "antd";
 import {
   LeftOutlined,
@@ -49,6 +49,13 @@ const EditHeader: FC = () => {
       e.preventDefault();
       if (!loading) doSave();
     });
+    useDebounceEffect(
+      () => {
+        doSave();
+      },
+      [list, setting],
+      { wait: 500 },
+    );
 
     return (
       <Button
