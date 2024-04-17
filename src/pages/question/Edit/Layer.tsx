@@ -16,7 +16,10 @@ import {
   changeQncHidden,
   toggleQncLocked,
   changeQncTitle,
+  sortQncList,
 } from "@/store/counter/qnc";
+import SortableContainer from "@/components/DragSortable/SortableContainer";
+import SortableItem from "@/components/DragSortable/SortableItem";
 const { Text } = Typography;
 const Layer: FC = () => {
   const { list: qncLists } = useGetQncInfo();
@@ -43,12 +46,19 @@ const Layer: FC = () => {
     const newTitle = e.target.value;
     dispatch(changeQncTitle({ qn_id, title: newTitle }));
   };
+  const sortableItems = qncLists.map((qn) => ({ ...qn, id: qn.qn_id }));
+  const onDragEnd = (oldIndex: number, newIndex: number) => {
+    if (oldIndex === newIndex) {
+      return;
+    }
+    dispatch(sortQncList({ oldIndex, newIndex }));
+  };
   return (
-    <>
+    <SortableContainer items={sortableItems} onDragEnd={onDragEnd}>
       {qncLists.map((qn) => {
         const { title, qn_id, hidden, locked } = qn;
         return (
-          <div key={qn_id}>
+          <SortableItem id={qn_id} key={qn_id}>
             <div
               className={styles.layer}
               onClick={(e: any) => handleClick(e, qn_id)}
@@ -96,10 +106,10 @@ const Layer: FC = () => {
                 </Tooltip>
               </div>
             </div>
-          </div>
+          </SortableItem>
         );
       })}
-    </>
+    </SortableContainer>
   );
 };
 

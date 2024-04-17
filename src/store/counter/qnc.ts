@@ -1,6 +1,7 @@
 import { produce } from "immer";
 import { nanoid } from "nanoid";
 import cloneDeep from "lodash.clonedeep";
+import { arrayMove } from "@dnd-kit/sortable";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { QNComponentType, QNComponentProps } from "@/components/QNComponents";
@@ -42,6 +43,16 @@ export const qncSlice = createSlice({
     setQncList: produce(
       (draft: QNComponentState, action: PayloadAction<QNComponent[]>) => {
         draft.list = action.payload;
+      },
+    ),
+    sortQncList: produce(
+      (
+        draft: QNComponentState,
+        action: PayloadAction<{ oldIndex: number; newIndex: number }>,
+      ) => {
+        const { list } = draft;
+        const { oldIndex, newIndex } = action.payload;
+        draft.list = arrayMove(list, oldIndex, newIndex);
       },
     ),
     setQncActiveId: produce(
@@ -134,7 +145,6 @@ export const qncSlice = createSlice({
         }
       },
     ),
-
     toggleQncLocked: produce(
       (draft: QNComponentState, action: PayloadAction<{ qn_id: string }>) => {
         const { qn_id } = action.payload;
@@ -154,6 +164,7 @@ export const qncSlice = createSlice({
 
 export const {
   setQncList,
+  sortQncList,
   setQncActiveId,
   resetQnc,
   deleteActiveQnc,
