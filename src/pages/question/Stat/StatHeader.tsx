@@ -6,6 +6,7 @@ import styles from "./StatHeader.module.scss";
 import { useGetPageInfo } from "@/hooks";
 import { setPageSetting } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";
+import StatToolbar from "./StatToolbar";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
@@ -49,7 +50,9 @@ const EditHeader: FC = () => {
           </div>
         </Space>
       </div>
-      <div className={styles.middle}>middle</div>
+      <div className={styles.middle}>
+        <StatToolbar />
+      </div>
       <div className={styles.right}>right</div>
     </div>
   );
