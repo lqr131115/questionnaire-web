@@ -22,8 +22,11 @@ import {
 import { useGetQncInfo } from "@/hooks/useGetQncInfo";
 const EditToolbar: FC = () => {
   const dispatch = useAppDispatch();
-  const { activeId, activeQnc, history } = useGetQncInfo();
+  const { activeId, activeQnc, history, list } = useGetQncInfo();
   const { locked } = activeQnc || {};
+  const activeIndex = list.findIndex((c) => c.qn_id === activeId),
+    isFirst = activeIndex === 0,
+    isLast = activeIndex === list.length - 1;
   const handelDelete = () => {
     dispatch(deleteActiveQnc());
   };
@@ -37,7 +40,7 @@ const EditToolbar: FC = () => {
     dispatch(copyQnc({ qn_id: activeId }));
   };
   const handelMove = (direction = "up") => {
-    dispatch(moveQnc({ qn_id: activeId, direction }));
+    dispatch(moveQnc({ qn_id: activeId, oldIndex: activeIndex, direction }));
   };
   const handelRollback = () => {
     dispatch(rollbackQncAction());
@@ -82,7 +85,7 @@ const EditToolbar: FC = () => {
           shape="circle"
           icon={<ArrowUpOutlined />}
           onClick={() => handelMove()}
-          disabled={!activeId}
+          disabled={!activeId || isFirst}
         />
       </Tooltip>
       <Tooltip title="下移">
@@ -90,7 +93,7 @@ const EditToolbar: FC = () => {
           shape="circle"
           icon={<ArrowDownOutlined />}
           onClick={() => handelMove("down")}
-          disabled={!activeId}
+          disabled={!activeId || isLast}
         />
       </Tooltip>
       <Tooltip title="撤销">

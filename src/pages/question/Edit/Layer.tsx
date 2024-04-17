@@ -55,10 +55,10 @@ const Layer: FC = () => {
   };
   return (
     <SortableContainer items={sortableItems} onDragEnd={onDragEnd}>
-      {qncLists.map((qn) => {
-        const { title, qn_id, hidden, locked } = qn;
+      {sortableItems.map((qn) => {
+        const { title, qn_id, hidden, locked, id } = qn;
         return (
-          <SortableItem id={qn_id} key={qn_id}>
+          <SortableItem id={id} key={qn_id}>
             <div
               className={styles.layer}
               onClick={(e: any) => handleClick(e, qn_id)}

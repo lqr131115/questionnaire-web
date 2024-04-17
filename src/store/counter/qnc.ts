@@ -101,11 +101,18 @@ export const qncSlice = createSlice({
     moveQnc: produce(
       (
         draft: QNComponentState,
-        action: PayloadAction<{ qn_id: string; direction: string }>,
+        action: PayloadAction<{
+          qn_id: string;
+          oldIndex: number;
+          direction: string;
+        }>,
       ) => {
         const { list } = draft;
         const { qn_id, direction } = action.payload;
-        const oldIndex = draft.list.findIndex((c) => c.qn_id === qn_id);
+        let oldIndex = action.payload.oldIndex;
+        if (oldIndex == null) {
+          oldIndex = draft.list.findIndex((c) => c.qn_id === qn_id);
+        }
         if (direction === "up") {
           if (oldIndex > 0) {
             draft.list = arraySwap(list, oldIndex, oldIndex - 1);
