@@ -3,7 +3,7 @@ import { useTitle } from "ahooks";
 import { useRequestQNDetail } from "@/hooks";
 import styles from "./index.module.scss";
 import StatHeader from "./StatHeader";
-import CanvasBody from "../Edit/CanvasBody";
+import QnInfo from "./QnInfo";
 import QNResponse from "./QNResponse";
 import ChartStat from "./ChartStat";
 
@@ -17,7 +17,7 @@ const Edit: FC = () => {
       </div>
       <div className={styles.content}>
         <div className={styles.left}>
-          <CanvasBody loading={loading} />
+          <QnInfo loading={loading} />
         </div>
         <div className={styles.main}>
           <QNResponse />
