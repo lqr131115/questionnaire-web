@@ -1,0 +1,38 @@
+.container {
+  $bgColor: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    min-height: 60px;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    padding-bottom: 0;
+    background-color: #f0f2f5;
+    .left {
+      flex: 1;
+      padding: 10px;
+      background-color: $bgColor;
+    }
+
+    .main {
+      flex: 3;
+      background-color: $bgColor;
+      overflow: auto;
+      margin: 0 10px;
+      padding: 10px;
+    }
+
+    .right {
+      flex: 1;
+      padding: 10px;
+      background-color: $bgColor;
+    }
+  }
+}

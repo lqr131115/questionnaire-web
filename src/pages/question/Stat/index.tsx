@@ -1,18 +1,42 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
-import { Spin } from "antd";
 import { useRequestQNDetail } from "@/hooks";
-const Stat: FC = () => {
+import { useAppDispatch } from "@/store/hooks";
+import { setQncActiveId } from "@/store/counter/qnc";
+import styles from "./index.module.scss";
+import StatHeader from "./StatHeader";
+import CanvasBody from "../Edit/CanvasBody";
+import QNResponse from "./QNResponse";
+import ChartStat from "./ChartStat";
+
+const Edit: FC = () => {
   useTitle("问卷统计");
-  const { loading, data: detail } = useRequestQNDetail();
+  const { loading } = useRequestQNDetail();
+  const dispatch = useAppDispatch();
+  const clearQncActiveId = () => {
+    dispatch(setQncActiveId(""));
+  };
+
   return (
-    <>
-      <h3>问卷统计</h3>
-      <Spin spinning={loading} size="large">
-        <div>{detail && (detail as any).title}</div>
-      </Spin>
-    </>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <StatHeader />
+      </div>
+      <div className={styles.content}>
+        <div className={styles.left}>
+          <CanvasBody loading={loading} />
+        </div>
+        <div className={styles.main} onClick={clearQncActiveId}>
+          <div className={styles.wrapper}>
+            <QNResponse />
+          </div>
+        </div>
+        <div className={styles.right}>
+          <ChartStat />
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default Stat;
+export default Edit;

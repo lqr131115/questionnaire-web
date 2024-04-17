@@ -27,6 +27,7 @@ type QNComponentState = {
   activeId: string;
   list: QNComponent[];
   history: QNActionHistory[];
+  // feature?: QNActionHistory[];
 };
 
 const initialState: QNComponentState = {
