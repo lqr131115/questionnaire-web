@@ -1,18 +1,19 @@
 import { produce } from "immer";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type PageSettingType = {
+export type PageInfoType = {
   title: string;
   description?: string;
   styles?: string;
   scripts?: string;
+  [key: string]: any;
 };
 
-type PageState = {
-  setting: PageSettingType;
+type PageInfoState = {
+  setting: PageInfoType;
 };
 
-const initialState: PageState = {
+const initialState: PageInfoState = {
   setting: {
     title: "",
   },
@@ -23,7 +24,7 @@ export const pageSlice = createSlice({
   initialState,
   reducers: {
     setPageSetting: produce(
-      (draft: PageState, action: PayloadAction<PageSettingType>) => {
+      (draft: PageInfoState, action: PayloadAction<PageInfoType>) => {
         draft.setting = action.payload;
       },
     ),
