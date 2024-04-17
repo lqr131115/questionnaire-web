@@ -4,7 +4,7 @@ import { RequestEnum } from "../constants/enum";
 export const QUESTIONNAIRE_URL = "/question";
 export const QUESTIONNAIRE_LIST_URL = "/question";
 
-export type QNListSearchOptions = {
+export type QNOptions = {
   id: string;
   keyword: string;
   isStar: boolean;
@@ -14,7 +14,7 @@ export type QNListSearchOptions = {
   [key: string]: any;
 };
 
-export const getQNList = (data: Partial<QNListSearchOptions> = {}) =>
+export const getQNList = (data: Partial<QNOptions> = {}) =>
   request({ method: RequestEnum.GET, url: QUESTIONNAIRE_LIST_URL, data });
 
 export const getQNDetail = (id: string) =>
@@ -29,7 +29,7 @@ export const createQN = () =>
     url: QUESTIONNAIRE_URL,
   });
 
-export const patchQN = (id: string, data: Partial<QNListSearchOptions> = {}) =>
+export const patchQN = (id: string, data: Partial<QNOptions> = {}) =>
   request({
     method: RequestEnum.PATCH,
     url: `${QUESTIONNAIRE_URL}/${id}`,
@@ -42,7 +42,7 @@ export const copyQN = (id: string) =>
     url: `${QUESTIONNAIRE_URL}/copy/${id}`,
   });
 
-export const deleteQN = (id: string, data: Partial<QNListSearchOptions> = {}) =>
+export const deleteQN = (id: string, data: Partial<QNOptions> = {}) =>
   request({
     method: RequestEnum.DELETE,
     url: `${QUESTIONNAIRE_URL}/${id}`,

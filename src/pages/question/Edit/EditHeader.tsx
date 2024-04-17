@@ -1,7 +1,15 @@
 import React, { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useKeyPress, useRequest, useDebounceEffect } from "ahooks";
-import { Button, Typography, Space, Drawer, ConfigProvider, Input } from "antd";
+import {
+  Button,
+  Typography,
+  Space,
+  Drawer,
+  ConfigProvider,
+  Input,
+  message,
+} from "antd";
 import {
   LeftOutlined,
   EditOutlined,
@@ -67,6 +75,33 @@ const EditHeader: FC = () => {
       </Button>
     );
   };
+  const PublishButton: FC = () => {
+    const { list } = useGetQncInfo();
+    const { setting } = useGetPageInfo();
+    const { loading, run: doPublish } = useRequest(
+      async () => {
+        if (!id) return;
+        const res = await patchQN(id, {
+          ...setting,
+          componentList: list,
+          isPublished: true,
+        });
+        return res.data;
+      },
+      {
+        manual: true,
+        onSuccess: () => {
+          message.success("发布成功");
+          navigator(`/question/stat/${id}`);
+        },
+      },
+    );
+    return (
+      <Button type="primary" disabled={loading} onClick={doPublish}>
+        发布
+      </Button>
+    );
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.left}>
@@ -105,8 +140,8 @@ const EditHeader: FC = () => {
       </div>
       <div className={styles.right}>
         <Space>
-          {<SaveButton />}
-          <Button type="primary">发布</Button>
+          <SaveButton />
+          <PublishButton />
           <Button
             type="link"
             icon={<SettingOutlined style={{ color: "black" }} />}
