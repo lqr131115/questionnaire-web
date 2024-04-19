@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { useAppDispatch } from "@/store/hooks";
-import { setPageSetting } from "@/store/counter/page";
+import { setPageInfo } from "@/store/counter/page";
 const { TextArea } = Input;
 export type PageSettingProps = {
   title: string;
@@ -33,7 +33,7 @@ const PageSetting: FC<Partial<PageSettingProps>> = (props) => {
   }, [title, description, styles, scripts]);
 
   const onFinish = (values: any) => {
-    dispatch(setPageSetting(values));
+    dispatch(setPageInfo(values));
     onDrawerClose && onDrawerClose();
   };
   return (

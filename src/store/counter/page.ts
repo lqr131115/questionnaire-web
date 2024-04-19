@@ -10,27 +10,31 @@ export type PageInfoType = {
 };
 
 type PageInfoState = {
-  setting: PageInfoType;
+  title: string;
+  description?: string;
+  styles?: string;
+  scripts?: string;
+  [key: string]: any;
 };
 
 const initialState: PageInfoState = {
-  setting: {
-    title: "",
-  },
+  title: "",
 };
 
 export const pageSlice = createSlice({
   name: "page",
   initialState,
   reducers: {
-    setPageSetting: produce(
-      (draft: PageInfoState, action: PayloadAction<PageInfoType>) => {
-        draft.setting = action.payload;
+    setPageInfo: produce(
+      (draft: PageInfoState, action: PayloadAction<PageInfoState>) => {
+        for (const key in action.payload) {
+          draft[key] = action.payload[key];
+        }
       },
     ),
   },
 });
 
-export const { setPageSetting } = pageSlice.actions;
+export const { setPageInfo } = pageSlice.actions;
 
 export default pageSlice.reducer;

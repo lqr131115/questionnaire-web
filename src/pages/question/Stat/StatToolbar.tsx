@@ -9,25 +9,32 @@ const StatToolbar: FC = () => {
   const { isPublished } = useGetPageInfo() as any;
   // URL: 符合C 端规则
   const [text] = useState<string>(`https://ant.design/${id}`);
-  function geneLinkAndQRCode() {
-    if (!isPublished) {
-      return;
-    }
-  }
   const handelCopy = () => {
-    geneLinkAndQRCode();
     message.success("已复制");
   };
   return (
-    <Space>
-      <Input placeholder="-" maxLength={60} value={text} />
-      <Tooltip title="复制">
-        <Button shape="circle" icon={<CopyOutlined />} onClick={handelCopy} />
-      </Tooltip>
-      <Popover content={<QRCode value={text || "-"} />}>
-        <Button shape="circle" icon={<QrcodeOutlined />} />
-      </Popover>
-    </Space>
+    <>
+      {isPublished && (
+        <Space>
+          <Input
+            placeholder="-"
+            maxLength={60}
+            value={text}
+            style={{ width: 480 }}
+          />
+          <Tooltip title="复制">
+            <Button
+              shape="circle"
+              icon={<CopyOutlined />}
+              onClick={handelCopy}
+            />
+          </Tooltip>
+          <Popover content={<QRCode value={text || "-"} />}>
+            <Button shape="circle" icon={<QrcodeOutlined />} />
+          </Popover>
+        </Space>
+      )}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getQNDetail } from "../api";
 import { setQncList, setQncActiveId } from "../store/counter/qnc";
-import { setPageSetting } from "../store/counter/page";
+import { setPageInfo } from "../store/counter/page";
 export const useRequestQNDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -18,9 +18,16 @@ export const useRequestQNDetail = () => {
 
   useEffect(() => {
     if (!data) return;
-    const { componentList = [], title, description, styles, scripts } = data;
+    const {
+      componentList = [],
+      title,
+      description,
+      styles,
+      scripts,
+      isPublished,
+    } = data;
     dispatch(setQncList(componentList));
-    dispatch(setPageSetting({ title, description, styles, scripts }));
+    dispatch(setPageInfo({ title, description, styles, scripts, isPublished }));
     if (componentList.length) {
       dispatch(setQncActiveId(componentList[0]?.qn_id ?? ""));
     }

@@ -21,13 +21,13 @@ import styles from "./EditHeader.module.scss";
 import EditToolbar from "./EditToolbar";
 import PageSetting from "./PageSetting";
 import { useGetPageInfo, useGetQncInfo } from "@/hooks";
-import { setPageSetting } from "@/store/counter/page";
+import { setPageInfo } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";
 import { patchQN } from "@/api";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
-  const { setting } = useGetPageInfo();
+  const pageInfo = useGetPageInfo();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
   const dispatch = useAppDispatch();
@@ -40,15 +40,15 @@ const EditHeader: FC = () => {
   const { id } = useParams();
   const onTitleChange = (e: any) => {
     const newTitle = e.target.value;
-    dispatch(setPageSetting({ ...setting, title: newTitle }));
+    dispatch(setPageInfo({ ...pageInfo, title: newTitle }));
   };
   const SaveButton: FC = () => {
     const { list } = useGetQncInfo();
-    const { setting } = useGetPageInfo();
+    const pageInfo = useGetPageInfo();
     const { loading, run: doSave } = useRequest(
       async () => {
         if (!id) return;
-        const res = await patchQN(id, { ...setting, componentList: list });
+        const res = await patchQN(id, { ...pageInfo, componentList: list });
         return res.data;
       },
       { manual: true },
@@ -61,7 +61,7 @@ const EditHeader: FC = () => {
       () => {
         doSave();
       },
-      [list, setting],
+      [list, pageInfo],
       { wait: 500 },
     );
 
@@ -77,12 +77,12 @@ const EditHeader: FC = () => {
   };
   const PublishButton: FC = () => {
     const { list } = useGetQncInfo();
-    const { setting } = useGetPageInfo();
+    const pageInfo = useGetPageInfo();
     const { loading, run: doPublish } = useRequest(
       async () => {
         if (!id) return;
         const res = await patchQN(id, {
-          ...setting,
+          ...pageInfo,
           componentList: list,
           isPublished: true,
         });
@@ -116,7 +116,7 @@ const EditHeader: FC = () => {
           <div className={styles.title}>
             {editing && (
               <Input
-                value={setting.title}
+                value={pageInfo.title}
                 autoFocus
                 maxLength={20}
                 onChange={onTitleChange}
@@ -128,7 +128,7 @@ const EditHeader: FC = () => {
             )}
             {!editing && (
               <Space>
-                <Text className={styles.text}>{setting.title}</Text>
+                <Text className={styles.text}>{pageInfo.title}</Text>
                 <EditOutlined onClick={() => setEditing(true)} />
               </Space>
             )}
@@ -160,7 +160,7 @@ const EditHeader: FC = () => {
               open={open}
             >
               <PageSetting
-                {...setting}
+                {...pageInfo}
                 onDrawerClose={closePageSettingDrawer}
               />
             </Drawer>

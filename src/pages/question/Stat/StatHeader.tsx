@@ -4,19 +4,19 @@ import { Button, Typography, Space, Input } from "antd";
 import { LeftOutlined, EditOutlined, EnterOutlined } from "@ant-design/icons";
 import styles from "./StatHeader.module.scss";
 import { useGetPageInfo } from "@/hooks";
-import { setPageSetting } from "@/store/counter/page";
+import { setPageInfo } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";
 import StatToolbar from "./StatToolbar";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();
-  const { setting } = useGetPageInfo();
+  const pageInfo = useGetPageInfo();
   const { id } = useParams();
   const [editing, setEditing] = useState(false);
   const dispatch = useAppDispatch();
   const onTitleChange = (e: any) => {
     const newTitle = e.target.value;
-    dispatch(setPageSetting({ ...setting, title: newTitle }));
+    dispatch(setPageInfo({ ...pageInfo, title: newTitle }));
   };
   return (
     <div className={styles.wrapper}>
@@ -32,7 +32,7 @@ const EditHeader: FC = () => {
           <div className={styles.title}>
             {editing && (
               <Input
-                value={setting.title}
+                value={pageInfo.title}
                 autoFocus
                 maxLength={20}
                 onChange={onTitleChange}
@@ -44,7 +44,7 @@ const EditHeader: FC = () => {
             )}
             {!editing && (
               <Space>
-                <Text className={styles.text}>{setting.title}</Text>
+                <Text className={styles.text}>{pageInfo.title}</Text>
                 <EditOutlined onClick={() => setEditing(true)} />
               </Space>
             )}
