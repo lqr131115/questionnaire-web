@@ -4,21 +4,17 @@ import classNames from "classnames";
 import styles from "./QNInfo.module.scss";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useGetQncInfo } from "@/hooks";
-import { useAppDispatch } from "@/store/hooks";
-import { setQncActiveId } from "@/store/counter/qnc";
 
 type QNInfoProps = {
   loading: boolean;
+  activeId: string;
+  setActiveId: (id: string) => void;
+  setActiveType: (type: string) => void;
 };
 
 const QnInfo: FC<QNInfoProps> = (props) => {
-  const { loading } = props;
-  const { list: componentList, activeId } = useGetQncInfo();
-  const dispatch = useAppDispatch();
-  const handleClick = (event: MouseEvent, id: string) => {
-    event.stopPropagation();
-    dispatch(setQncActiveId(id));
-  };
+  const { loading, activeId, setActiveId, setActiveType } = props;
+  const { list: componentList } = useGetQncInfo();
   return (
     <Spin spinning={loading} style={{ marginTop: 20 }}>
       <div className={styles.container}>
@@ -36,7 +32,9 @@ const QnInfo: FC<QNInfoProps> = (props) => {
               <div
                 key={qn_id}
                 className={containerCls}
-                onClick={(event: any) => handleClick(event, qn_id)}
+                onClick={() => {
+                  setActiveId(qn_id), setActiveType(type);
+                }}
               >
                 <div className={styles.disabled}>
                   {getMaterialByType(type)?.component(qncProps)}
