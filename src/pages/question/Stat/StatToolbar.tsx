@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Tooltip, Space, Input, Popover, QRCode } from "antd";
+import { Button, Tooltip, Space, Input, Popover, QRCode, message } from "antd";
 import { CopyOutlined, QrcodeOutlined } from "@ant-design/icons";
 import { useGetPageInfo } from "@/hooks";
 
@@ -16,6 +16,7 @@ const StatToolbar: FC = () => {
   }
   const handelCopy = () => {
     geneLinkAndQRCode();
+    message.success("已复制");
   };
   return (
     <Space>
