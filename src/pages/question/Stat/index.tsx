@@ -9,7 +9,7 @@ import ChartStat from "./ChartStat";
 
 const Stat: FC = () => {
   useTitle("问卷统计");
-  const { loading } = useRequestQNDetail();
+  const { loading: qnInfoLoading } = useRequestQNDetail();
   const [activeId, setActiveId] = useState<string>("");
   const [activeType, setActiveType] = useState<string>("");
   return (
@@ -20,7 +20,7 @@ const Stat: FC = () => {
       <div className={styles.content}>
         <div className={styles.left}>
           <QnInfo
-            loading={loading}
+            loading={qnInfoLoading}
             activeId={activeId}
             setActiveId={setActiveId}
             setActiveType={setActiveType}

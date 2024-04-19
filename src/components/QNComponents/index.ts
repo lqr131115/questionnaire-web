@@ -50,11 +50,19 @@ const qncMaterialList: IQNComponent[] = [
   QNCheckboxMaterial,
 ];
 
+export const textQncMaterialGroup = [
+  QNTitleMaterial,
+  QNParagraphMaterial,
+  QNInfoMaterial,
+];
+
+export const textQncMaterialGroupType = textQncMaterialGroup.map((m) => m.type);
+
 export const qncMaterialGroup = [
   {
     groupId: "text",
     groupName: "文本",
-    components: [QNTitleMaterial, QNParagraphMaterial, QNInfoMaterial],
+    components: textQncMaterialGroup,
   },
   {
     groupId: "input",

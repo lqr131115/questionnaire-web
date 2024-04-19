@@ -8,6 +8,6 @@ export const useRequestStatList = (options: OptionType) => {
   async function _getStatList() {
     return await getStatList(id);
   }
-  const { loading, data, error } = useRequest(_getStatList);
-  return { loading, data, error };
+  const { loading, data: res, error } = useRequest(_getStatList);
+  return { loading, res, error };
 };
