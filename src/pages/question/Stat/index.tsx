@@ -4,15 +4,14 @@ import { useRequestQNDetail } from "@/hooks";
 import styles from "./index.module.scss";
 import StatHeader from "./StatHeader";
 import QnInfo from "./QnInfo";
-import QNResponse from "./QNResponse";
+import QNAnswer from "./QNAnswer";
 import ChartStat from "./ChartStat";
 
-const Edit: FC = () => {
+const Stat: FC = () => {
   useTitle("问卷统计");
   const { loading } = useRequestQNDetail();
   const [activeId, setActiveId] = useState<string>("");
   const [activeType, setActiveType] = useState<string>("");
-  console.log(activeType);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -28,7 +27,7 @@ const Edit: FC = () => {
           />
         </div>
         <div className={styles.main}>
-          <QNResponse />
+          <QNAnswer type={activeType} />
         </div>
         <div className={styles.right}>
           <ChartStat />
@@ -38,4 +37,4 @@ const Edit: FC = () => {
   );
 };
 
-export default Edit;
+export default Stat;
