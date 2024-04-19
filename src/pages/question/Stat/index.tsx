@@ -12,6 +12,7 @@ const Stat: FC = () => {
   const { loading: qnInfoLoading } = useRequestQNDetail();
   const [activeId, setActiveId] = useState<string>("");
   const [activeType, setActiveType] = useState<string>("");
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -27,10 +28,10 @@ const Stat: FC = () => {
           />
         </div>
         <div className={styles.main}>
-          <QNAnswer type={activeType} />
+          <QNAnswer id={activeId} setActiveId={setActiveId} />
         </div>
         <div className={styles.right}>
-          <ChartStat />
+          <ChartStat type={activeType} />
         </div>
       </div>
     </div>
