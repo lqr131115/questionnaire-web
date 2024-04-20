@@ -54,7 +54,8 @@ const QNAnswer: FC<QNAnswerProps> = (props) => {
         key: qn_id,
       };
     });
-
+  const dataSource = statList.map((s: any) => ({ ...s, key: s.id }));
+  // 或者直接使用 statList, columns 中的key去掉, Table的rowKey设置为"id", 和dataSource中的唯一标识一致
   const onPaginationChange: PaginationProps["onChange"] = (
     curPage,
     pageSize,
@@ -68,7 +69,7 @@ const QNAnswer: FC<QNAnswerProps> = (props) => {
         <Title level={3} style={{ marginTop: 5, marginBottom: 15 }}>
           答卷
         </Title>
-        <Table pagination={false} dataSource={statList} columns={columns} />
+        <Table pagination={false} dataSource={dataSource} columns={columns} />
         <Flex justify="end" style={{ marginTop: 10 }}>
           <Pagination
             hideOnSinglePage
