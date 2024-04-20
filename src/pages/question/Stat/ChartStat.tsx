@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { Typography } from "antd";
+import { Typography, Empty } from "antd";
 import { Line } from "@ant-design/charts";
 import type { LineConfig } from "@ant-design/charts";
+import { choiceQncMaterialGroupType } from "@/components/QNComponents";
 
 const { Title } = Typography;
 
@@ -27,12 +28,17 @@ const LineChart: FC = () => {
 
 const ChartStat: FC<ChartStatProps> = (props) => {
   const { type } = props;
+  const isShow = choiceQncMaterialGroupType.includes(type);
   return (
     <>
       <Title level={3} style={{ margin: "5px 0" }}>
-        统计 {type}
+        统计
       </Title>
-      <LineChart />
+      {isShow ? (
+        <LineChart />
+      ) : (
+        <Empty description="No Chart" style={{ marginTop: 60 }} />
+      )}
     </>
   );
 };

@@ -55,8 +55,12 @@ export const textQncMaterialGroup = [
   QNParagraphMaterial,
   QNInfoMaterial,
 ];
-
 export const textQncMaterialGroupType = textQncMaterialGroup.map((m) => m.type);
+
+export const choiceQncMaterialGroup = [QNRadioMaterial, QNCheckboxMaterial];
+export const choiceQncMaterialGroupType: string[] = choiceQncMaterialGroup.map(
+  (m) => m.type,
+);
 
 export const qncMaterialGroup = [
   {
@@ -72,7 +76,7 @@ export const qncMaterialGroup = [
   {
     groupId: "choice",
     groupName: "选择",
-    components: [QNRadioMaterial, QNCheckboxMaterial],
+    components: choiceQncMaterialGroup,
   },
   {
     groupId: "other",
