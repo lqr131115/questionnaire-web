@@ -16,3 +16,9 @@ export const getStatList = ({ id, page, pageSize }: StatOptions) =>
     url: `${STAT_LIST_URL}/${id}`,
     data: { page, pageSize },
   });
+
+export const getStatChartData = ({ id, componentId }: any) =>
+  request({
+    method: RequestEnum.GET,
+    url: `${STAT_LIST_URL}/${id}/${componentId}`,
+  });

@@ -31,7 +31,7 @@ const Stat: FC = () => {
           <QNAnswer id={activeId} setActiveId={setActiveId} />
         </div>
         <div className={styles.right}>
-          <ChartStat type={activeType} />
+          <ChartStat type={activeType} activeId={activeId} />
         </div>
       </div>
     </div>
