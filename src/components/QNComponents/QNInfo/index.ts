@@ -5,9 +5,11 @@ import propComponent from "./propComponent";
 import { ReactComponent as InfoSvg } from "@/assets/svg/info.svg";
 export * from "./interface";
 
+export const qnInfoType = "qnInfo";
+
 const QNInfoMaterial: IQNComponent = {
   title: "信息",
-  type: "qnInfo",
+  type: qnInfoType,
   icon: InfoSvg,
   component,
   propComponent,

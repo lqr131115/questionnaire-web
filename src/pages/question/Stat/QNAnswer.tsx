@@ -12,10 +12,11 @@ const { Title } = Typography;
 type QNAnswerProps = {
   id: string;
   setActiveId: (id: string) => void;
+  setActiveType: (type: string) => void;
 };
 
 const QNAnswer: FC<QNAnswerProps> = (props) => {
-  const { id: qnId, setActiveId } = props;
+  const { id: qnId, setActiveId, setActiveType } = props;
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
@@ -39,13 +40,16 @@ const QNAnswer: FC<QNAnswerProps> = (props) => {
   const columns = componentList
     .filter((c) => !textQncMaterialGroupType.includes(c.type))
     .map((c) => {
-      const { title, props, qn_id } = c;
+      const { title, props, qn_id, type } = c;
       return {
         title: (
           <span
             key={qn_id}
             style={{ color: qnId === qn_id ? "#1890ff" : "black" }}
-            onClick={() => setActiveId(qn_id)}
+            onClick={() => {
+              setActiveId(qn_id);
+              setActiveType(type);
+            }}
           >
             {props!.title || title}
           </span>

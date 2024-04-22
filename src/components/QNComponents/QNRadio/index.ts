@@ -5,6 +5,8 @@ import { QNRadioDefaultProps } from "./interface";
 import { ReactComponent as RadioSvg } from "@/assets/svg/radio.svg";
 export * from "./interface";
 
+export const qnRadioType = "qnRadio";
+
 const QNRadioMaterial: IQNComponent = {
   title: "单选",
   type: "qnRadio",

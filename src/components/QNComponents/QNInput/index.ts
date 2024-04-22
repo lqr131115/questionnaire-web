@@ -5,9 +5,11 @@ import { IQNComponent } from "..";
 import { ReactComponent as InputSvg } from "@/assets/svg/input.svg";
 export * from "./interface";
 
+export const qnInputType = "qnInput";
+
 const QNInputMaterial: IQNComponent = {
   title: "单行文本",
-  type: "qnInput",
+  type: qnInputType,
   icon: InputSvg,
   component, // 画布
   propComponent, // RightPanel 属性面板

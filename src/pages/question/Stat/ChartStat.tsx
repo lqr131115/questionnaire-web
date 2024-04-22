@@ -1,11 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import { Typography, Empty, Spin } from "antd";
 import { useRequest } from "ahooks";
-import { Line } from "@ant-design/charts";
-import type { LineConfig } from "@ant-design/charts";
+import { Line, Column } from "@ant-design/charts";
+import type { LineConfig, ColumnConfig } from "@ant-design/charts";
 import { choiceQncMaterialGroupType } from "@/components/QNComponents";
 import { getStatChartData } from "@/api";
 import { useParams } from "react-router-dom";
+import { qnRadioType } from "@/components/QNComponents/QNRadio";
+import { qnCheckboxType } from "@/components/QNComponents/QNCheckbox";
 
 const { Title } = Typography;
 
@@ -24,6 +26,28 @@ const LineChart: FC<{ data: any[] }> = (props) => {
     yField: "value",
   };
   return <Line {...config} />;
+};
+
+const ColumnChart: FC<{ data: any[] }> = (props) => {
+  const { data } = props;
+
+  const config: ColumnConfig = {
+    data,
+    height: 400,
+    xField: "year",
+    yField: "value",
+  };
+  return <Column {...config} />;
+};
+
+const renderChart = (type: string, data: any[]) => {
+  if (type === qnRadioType) {
+    return <LineChart data={data} />;
+  }
+  if (type === qnCheckboxType) {
+    return <ColumnChart data={data} />;
+  }
+  return <Empty description="No Chart" style={{ marginTop: 60 }} />;
 };
 
 const ChartStat: FC<ChartStatProps> = (props) => {
@@ -54,11 +78,7 @@ const ChartStat: FC<ChartStatProps> = (props) => {
         <Title level={3} style={{ margin: "5px 0" }}>
           统计
         </Title>
-        {isShow ? (
-          <LineChart data={chartData} />
-        ) : (
-          <Empty description="No Chart" style={{ marginTop: 60 }} />
-        )}
+        {renderChart(type, chartData)}
       </Spin>
     </>
   );

@@ -5,9 +5,11 @@ import { IQNComponent } from "..";
 import { ReactComponent as TextAreaSvg } from "@/assets/svg/textarea.svg";
 export * from "./interface";
 
+export const qnTextAreaType = "qnTextArea";
+
 const QNTextAreaMaterial: IQNComponent = {
   title: "多行文本",
-  type: "qnTextArea",
+  type: qnTextAreaType,
   icon: TextAreaSvg,
   component,
   propComponent,
