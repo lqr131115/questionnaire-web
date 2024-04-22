@@ -35,7 +35,7 @@ export interface IQNComponent {
   type: QNComponentType;
   component: React.FC<QNComponentProps>; // 画布中显示的组件
   propComponent: React.FC<QNComponentProps>; // 激活组件在属性面板显示的内容
-  statComponent?: React.FC<any>; // 激活组件在属性面板显示的内容
+  statComponent?: React.FC<any>; // 统计表单组件
   props: QNComponentProps;
   [key: string]: any;
 }
