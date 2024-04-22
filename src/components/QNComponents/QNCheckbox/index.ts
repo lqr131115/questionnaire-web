@@ -1,5 +1,6 @@
 import component from "./component";
 import propComponent from "./propComponent";
+import statComponent from "./statComponent";
 import { IQNComponent } from "..";
 import { QNCheckboxDefaultProps } from "./interface";
 import { ReactComponent as CheckboxSvg } from "@/assets/svg/checkbox.svg";
@@ -13,6 +14,7 @@ const QNCheckboxMaterial: IQNComponent = {
   icon: CheckboxSvg,
   component,
   propComponent,
+  statComponent,
   props: QNCheckboxDefaultProps,
 };
 
