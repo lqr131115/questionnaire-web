@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { nanoid } from "nanoid";
 import { Typography, Row, Col, Flex, Empty } from "antd";
 import Icon from "@ant-design/icons/lib/components/Icon";
@@ -12,7 +12,7 @@ const borderStyle = "1px solid #f0f0f0";
 const ComponentLib: FC = () => {
   const [cols] = useState(3);
   const dispatch = useAppDispatch();
-  const handleClick = (component: IQNComponent) => {
+  const handleClick = useCallback((component: IQNComponent) => {
     const { props, title, type } = component;
     const newComponent = {
       props,
@@ -21,7 +21,7 @@ const ComponentLib: FC = () => {
       qn_id: nanoid(),
     };
     dispatch(addQnc(newComponent));
-  };
+  }, []);
 
   return (
     <div className={styles.lib}>
