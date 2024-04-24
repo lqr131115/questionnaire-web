@@ -22,12 +22,14 @@ export const useRequestQNDetail = () => {
       componentList = [],
       title,
       description,
-      styles,
+      css,
       scripts,
       isPublished,
     } = data;
     dispatch(setQncList(componentList));
-    dispatch(setPageInfo({ title, description, styles, scripts, isPublished }));
+    dispatch(
+      setPageInfo({ title, description, styles: css, scripts, isPublished }),
+    );
     if (componentList.length) {
       dispatch(setQncActiveId(componentList[0]?.qn_id ?? ""));
     }
