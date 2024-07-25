@@ -49,3 +49,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 npx prettier --write --end-of-line lf .
+
+git config --global core.autocrlf false
