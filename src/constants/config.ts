@@ -18,8 +18,8 @@ const requestBaseUrlConfig: RequestBaseUrlConfig = {
     baseUrl: "/mock",
   },
   production: {
-    mockUrl: "/qn",
-    baseUrl: "/qn",
+    mockUrl: "/api",
+    baseUrl: "/api",
   },
 };
 
