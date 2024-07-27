@@ -11,8 +11,8 @@ import {
   StarFilled,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
-import styles from "./QuestionCard.module.scss";
-import { copyQN, deleteQN, patchQN } from "../api";
+import styles from "./index.module.scss";
+import { copyQN, deleteQN, patchQN } from "@/api";
 type QuestionCardProps = {
   id: string;
   title: string;

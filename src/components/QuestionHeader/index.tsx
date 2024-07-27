@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { Input } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { SearchProps } from "antd/es/input/Search";
-import styles from "./QuestionHeader.module.scss";
-import { SEARCH_LIST_KEYWORD_KEY } from "../constants";
+import styles from "./index.module.scss";
+import { SEARCH_LIST_KEYWORD_KEY } from "@/constants";
 const { Search } = Input;
 type QuestionHeaderProps = {
   title: string;

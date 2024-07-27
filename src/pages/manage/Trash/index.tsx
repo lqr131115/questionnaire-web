@@ -7,8 +7,8 @@ import type { Questionnaire } from "../manage";
 import styles from "./index.module.scss";
 import { deleteQN, batchDeleteQN } from "@/api";
 import { useRequestQNList } from "@/hooks";
-import QuestionHeader from "@/components/QuestionHeader";
 import QNListPagination from "@/components/QNListPagination";
+import QuestionHeader from "@/components/QuestionHeader";
 
 const columns: TableColumnsType<Questionnaire> = [
   {
