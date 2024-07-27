@@ -4,7 +4,7 @@ import { useRequestQNDetail } from "@/hooks";
 import styles from "./index.module.scss";
 import StatHeader from "./StatHeader";
 import QnInfo from "./QnInfo";
-import QNAnswer from "./QNAnswer";
+import QNAnswer from "./QnAnswer";
 import ChartStat from "./ChartStat";
 
 const Stat: FC = () => {

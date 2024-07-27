@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { AlignLeftOutlined, SettingOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
-import ComponentProp from "./ComponentProp";
-import ComponentSetting from "./ComponentSetting";
+import ComponentProp from "./components/ComponentProp";
+import ComponentSetting from "./components/ComponentSetting";
 const tabItems: any[] = [
   {
     key: "prop",

@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Flex, Layout, Spin } from "antd";
-import styles from "./MainLayout.module.scss";
-import Logo from "../components/Logo";
-import UserInfo from "../components/UserInfo";
-import { useRequestUserInfo } from "../hooks";
+import styles from "./index.module.scss";
+import Logo from "@/components/Logo";
+import UserInfo from "@/components/UserInfo";
+import { useRequestUserInfo } from "@/hooks";
 const { Header, Footer, Content } = Layout;
 
 const MainLayout: FC = () => {

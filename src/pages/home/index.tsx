@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import { Typography, Button } from "antd";
 import { useNavigate } from "react-router-dom";
-import styles from "./Home.module.scss";
-import { MANAGE_LIST_PATH } from "../router";
+import styles from "./index.module.scss";
+import { MANAGE_LIST_PATH } from "@/router";
 const { Title } = Typography;
 const Home: FC = () => {
   useTitle("Home");

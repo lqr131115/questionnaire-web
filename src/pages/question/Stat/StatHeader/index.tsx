@@ -2,11 +2,11 @@ import React, { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Typography, Space, Input } from "antd";
 import { LeftOutlined, EditOutlined, EnterOutlined } from "@ant-design/icons";
-import styles from "./StatHeader.module.scss";
+import styles from "./index.module.scss";
 import { useGetPageInfo } from "@/hooks";
 import { setPageInfo } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";
-import StatToolbar from "./StatToolbar";
+import StatToolbar from "./components/StatToolbar";
 const { Text } = Typography;
 const EditHeader: FC = () => {
   const navigator = useNavigate();

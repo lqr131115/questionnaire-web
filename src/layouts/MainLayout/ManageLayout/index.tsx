@@ -8,8 +8,8 @@ import {
   StarOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { createQN } from "../api";
-import styles from "./ManageLayout.module.scss";
+import { createQN } from "../../../api";
+import styles from "./index.module.scss";
 
 function getItem(
   label: React.ReactNode,

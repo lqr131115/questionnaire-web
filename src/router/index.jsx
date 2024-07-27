@@ -1,11 +1,11 @@
 import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import ManageLayout from "../layouts/ManageLayout";
+import ManageLayout from "../layouts/MainLayout/ManageLayout";
 import QuestionLayout from "../layouts/QuestionLayout";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Home from "../pages/home";
+import Login from "../pages/login";
+import Register from "../pages/register";
 import NotFound from "../pages/NotFound";
 import List from "../pages/manage/List";
 import Star from "../pages/manage/Star";

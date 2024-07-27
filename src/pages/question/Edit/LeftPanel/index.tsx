@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { AppstoreOutlined, PicCenterOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
-import ComponentLib from "./ComponentLib";
-import Layer from "./Layer";
+import ComponentLib from "./components/ComponentLib";
+import Layer from "./components/Layer";
 
 const tabItems: any[] = [
   {

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Spin } from "antd";
 import classNames from "classnames";
-import styles from "./QNInfo.module.scss";
+import styles from "./index.module.scss";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useGetQncInfo } from "@/hooks";
 

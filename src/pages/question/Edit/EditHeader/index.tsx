@@ -17,9 +17,9 @@ import {
   EnterOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
-import styles from "./EditHeader.module.scss";
-import EditToolbar from "./EditToolbar";
-import PageSetting from "./PageSetting";
+import styles from "./index.module.scss";
+import EditToolbar from "./components/EditToolbar";
+import PageSetting from "./components/PageSetting";
 import { useGetPageInfo, useGetQncInfo } from "@/hooks";
 import { setPageInfo } from "@/store/counter/page";
 import { useAppDispatch } from "@/store/hooks";

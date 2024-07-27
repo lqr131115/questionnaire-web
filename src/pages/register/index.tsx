@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useRequest, useTitle } from "ahooks";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../api";
-import { LOGIN_PATH } from "../router";
-import styles from "./Register.module.scss";
+import { register } from "@/api";
+import { LOGIN_PATH } from "@/router";
+import styles from "./index.module.scss";
 const Register: FC = () => {
   useTitle("注册");
   const [form] = Form.useForm();

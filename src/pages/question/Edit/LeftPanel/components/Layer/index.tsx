@@ -9,7 +9,7 @@ import {
   LockOutlined,
   UnlockOutlined,
 } from "@ant-design/icons";
-import styles from "./Layer.module.scss";
+import styles from "./index.module.scss";
 import { useAppDispatch } from "@/store/hooks";
 import {
   setQncActiveId,

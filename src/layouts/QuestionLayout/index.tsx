@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Flex, Spin } from "antd";
-import { useRequestUserInfo } from "../hooks";
+import { useRequestUserInfo } from "../../hooks";
 const QuestionLayout: FC = () => {
   const { loading } = useRequestUserInfo();
   return (

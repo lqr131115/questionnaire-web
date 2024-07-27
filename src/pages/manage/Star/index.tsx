@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { useTitle } from "ahooks";
 import { Empty, Spin, Flex } from "antd";
-import type { Questionnaire } from "./manage";
-import styles from "./Star.module.scss";
+import type { Questionnaire } from "../manage";
+import styles from "./index.module.scss";
 import QuestionCard from "@/components/QuestionCard";
 import QuestionHeader from "@/components/QuestionHeader";
 import { useRequestQNList } from "@/hooks";

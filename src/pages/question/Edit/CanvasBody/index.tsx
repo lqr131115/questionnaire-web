@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Spin } from "antd";
 import classNames from "classnames";
-import styles from "./canvasbody.module.scss";
+import styles from "./index.module.scss";
 import { getMaterialByType } from "@/components/QNComponents";
 import { useAppDispatch } from "@/store/hooks";
 import { setQncActiveId, sortQncList } from "@/store/counter/qnc";

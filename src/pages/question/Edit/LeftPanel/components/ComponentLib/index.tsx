@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { Typography, Row, Col, Flex, Empty } from "antd";
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { IQNComponent, qncMaterialGroup } from "@/components/QNComponents";
-import styles from "./ComponentLib.module.scss";
+import styles from "./index.module.scss";
 import { useAppDispatch } from "@/store/hooks";
 import { addQnc } from "@/store/counter/qnc";
 

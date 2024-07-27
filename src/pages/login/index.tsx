@@ -4,12 +4,12 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useRequest, useTitle } from "ahooks";
 import { useDispatch } from "react-redux";
-import styles from "./Login.module.scss";
-import { login } from "../api";
-import { setItem } from "../utils/storage";
-import { TOKEN_KEY } from "../constants/enum";
-import { REGISTER_PATH, HOME_PATH } from "../router";
-import { setUserInfo } from "../store/counter/user";
+import styles from "./index.module.scss";
+import { login } from "@/api";
+import { setItem } from "@/utils/storage";
+import { TOKEN_KEY } from "@/constants/enum";
+import { REGISTER_PATH, HOME_PATH } from "@/router";
+import { setUserInfo } from "@/store/counter/user";
 type FieldType = {
   username?: string;
   password?: string;
